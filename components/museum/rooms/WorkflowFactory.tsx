@@ -25,7 +25,7 @@ export default function WorkflowFactory({ position, active }: RoomProps) {
       ))}
       
       {nodes.map((node, i) => i < 4 && (
-        <Line key={`line-${i}`} points={[node.pos, nodes[i+1].pos]} color={node.color} opacity={0.5} lineWidth={2} transparent />
+        <Line key={`line-${i}`} points={[node.pos, nodes[i+1].pos] as any} color={node.color} opacity={0.5} lineWidth={2} transparent />
       ))}
 
       <group position={[-3.5, -3, -5]}>
@@ -42,7 +42,7 @@ export default function WorkflowFactory({ position, active }: RoomProps) {
       <Sparkles count={40} scale={15} color="#F59E0B" size={0.4} />
 
       {nodes.map((node, i) => (
-        <Line key={`drop-${i}`} points={[node.pos, [node.pos[0], -4, node.pos[2]]]} color={node.color} opacity={0.15} transparent />
+        <Line key={`drop-${i}`} points={[node.pos, [node.pos[0], -4, node.pos[2]]] as any} color={node.color} opacity={0.15} transparent />
       ))}
     </group>
   )

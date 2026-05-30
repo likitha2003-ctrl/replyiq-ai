@@ -164,7 +164,7 @@ export function NewsCards({
   }, [shouldAnimate]);
 
   // Animation variants
-  const containerVariants = {
+  const containerVariants: any = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -175,7 +175,7 @@ export function NewsCards({
     }
   };
 
-  const headerVariants = {
+  const headerVariants: any = {
     hidden: { 
       opacity: 0, 
       y: -20,
@@ -196,7 +196,7 @@ export function NewsCards({
     }
   };
 
-  const statusBarContainerVariants = {
+  const statusBarContainerVariants: any = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -207,7 +207,7 @@ export function NewsCards({
     }
   };
 
-  const statusBarVariants = {
+  const statusBarVariants: any = {
     hidden: { 
       opacity: 0, 
       scaleX: 0,
@@ -226,7 +226,7 @@ export function NewsCards({
     }
   };
 
-  const cardContainerVariants = {
+  const cardContainerVariants: any = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -237,7 +237,7 @@ export function NewsCards({
     }
   };
 
-  const cardVariants = {
+  const cardVariants: any = {
     hidden: { 
       opacity: 0, 
       y: 30,

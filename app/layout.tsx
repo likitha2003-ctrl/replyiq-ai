@@ -1,4 +1,5 @@
 import { JetBrains_Mono, Outfit } from 'next/font/google';
+import type { Metadata } from 'next';
 import { ToastProvider } from '../components/shared/ToastProvider';
 import './globals.css';
 

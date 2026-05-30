@@ -77,5 +77,8 @@ function AnimatedLine({ start, end, color, delay }: { start: [number, number, nu
       ref.current.material.opacity = 0.1 + Math.max(0, Math.sin(clock.getElapsedTime() * 2 + delay)) * 0.5
     }
   })
-  return <Line ref={ref} points={[start, end]} color={color} lineWidth={1.5} transparent opacity={0.1} />
+  return (
+    // @ts-ignore
+    <Line ref={ref} points={[start, end]} color={color} lineWidth={1.5} transparent opacity={0.1} />
+  )
 }

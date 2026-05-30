@@ -7,7 +7,7 @@ import { Mail, PhoneCall, MessageSquare, Sparkles, Check, ArrowRight, Zap, Play 
 import { useAIModeStore } from '../../store/aiModeStore';
 import StepIndicator from './StepIndicator';
 import GlowCard from '../shared/GlowCard';
-import Button from '../ui/Button';
+import { Button } from '../ui/Button';
 
 export function OnboardingFlow() {
   const router = useRouter();
@@ -153,7 +153,7 @@ export function OnboardingFlow() {
 
             <div className="pt-4 flex justify-end">
               <Button
-                variant="primary"
+                variant="default"
                 onClick={handleNextStep}
                 disabled={!channels.email && !channels.whatsapp && !channels.sms}
                 className="flex items-center gap-1.5 cursor-pointer"
@@ -222,7 +222,7 @@ export function OnboardingFlow() {
 
             <div className="pt-4 flex justify-between">
               <Button variant="outline" onClick={() => setStep(1)} className="cursor-pointer">Back</Button>
-              <Button variant="primary" onClick={handleNextStep} className="flex items-center gap-1.5 cursor-pointer">
+              <Button variant="default" onClick={handleNextStep} className="flex items-center gap-1.5 cursor-pointer">
                 <span>Calibrate</span>
                 <ArrowRight size={14} />
               </Button>
@@ -251,7 +251,7 @@ export function OnboardingFlow() {
 
             <div className="pt-6 flex justify-center">
               <Button
-                variant="primary"
+                variant="default"
                 onClick={handleFinish}
                 className="flex items-center gap-2 px-8 py-2.5 text-sm font-semibold cursor-pointer shadow-lg shadow-zinc-500/20"
               >

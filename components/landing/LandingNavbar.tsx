@@ -42,7 +42,7 @@ export function LandingNavbar() {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.8, ease: "easeOut" as any }}
         className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
           scrolled 
             ? 'bg-black/50 backdrop-blur-xl border-b border-white/5 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.1)]' 

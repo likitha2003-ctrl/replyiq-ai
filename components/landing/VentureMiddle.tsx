@@ -106,7 +106,7 @@ export function VentureAIBrain() {
           </motion.div>
         </div>
 
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, delay: 1.5 }} className="flex flex-wrap justify-center gap-4">
+        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 1.5 }} className="flex flex-wrap justify-center gap-3">
           {["8 AI modules", "Real-time processing", "Zero manual work"].map((t, i) => (
             <div key={i} className="px-4 py-2 rounded-full border border-[var(--border)] bg-[var(--surface)] text-[12px] font-mono text-[var(--text-secondary)]">
               {t}

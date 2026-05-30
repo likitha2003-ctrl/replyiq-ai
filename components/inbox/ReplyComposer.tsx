@@ -176,7 +176,7 @@ export function ReplyComposer({ conversation, onSend }: ReplyComposerProps) {
           </Button>
 
           <Button
-            variant="primary"
+            variant="default"
             size="sm"
             disabled={!content.trim()}
             onClick={handleSend}

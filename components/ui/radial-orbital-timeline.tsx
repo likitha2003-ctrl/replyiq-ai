@@ -183,7 +183,7 @@ export default function RadialOrbitalTimeline({
             const isExpanded = expandedItems[item.id];
             const isRelated = isRelatedToActive(item.id);
             const isPulsing = pulseEffect[item.id];
-            const Icon = item.icon;
+            const Icon = item.icon as any;
 
             const nodeStyle = {
               transform: `translate(${position.x}px, ${position.y}px)`,
@@ -194,7 +194,7 @@ export default function RadialOrbitalTimeline({
             return (
               <div
                 key={item.id}
-                ref={(el) => (nodeRefs.current[item.id] = el)}
+                ref={(el) => { nodeRefs.current[item.id] = el; }}
                 className="absolute transition-all duration-700 cursor-pointer"
                 style={nodeStyle}
                 onClick={(e) => {

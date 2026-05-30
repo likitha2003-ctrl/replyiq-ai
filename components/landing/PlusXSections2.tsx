@@ -61,7 +61,7 @@ export function PlusXSalesAgent() {
 
 function StepReveal({ children, step, min, max = 999 }: { children: React.ReactNode, step: number, min: number, max?: number }) {
   if (step < min || step >= max) return null;
-  return <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: expoEase }} className="w-full flex flex-col">{children}</motion.div>;
+  return <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: expoEase as any }} className="w-full flex flex-col">{children}</motion.div>;
 }
 
 export function PlusXChurnShield() {
@@ -79,7 +79,7 @@ export function PlusXChurnShield() {
       
       <div className="max-w-[1100px] mx-auto w-full px-12 flex justify-between items-center z-10">
         <div className="w-[50%]">
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease: expoEase }} viewport={{ once: true }} className="w-[400px] bg-[#0A0A0A] border border-white/5 p-8 shadow-[0_0_60px_rgba(239,68,68,0.15)] relative overflow-hidden flex flex-col">
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease: expoEase as any }} viewport={{ once: true }} className="w-[400px] bg-[#0A0A0A] border border-white/5 p-8 shadow-[0_0_60px_rgba(239,68,68,0.15)] relative overflow-hidden flex flex-col">
             <div className="absolute right-0 top-0 bottom-0 w-2 bg-white/5"><div className="w-full bg-[var(--accent-red)] transition-all duration-1500 ease-out" style={{ height: inView ? '73%' : '0%', transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)', transitionDelay: '0.2s', marginTop: 'auto' }} /></div>
             
             <div className="font-mono text-[11px] text-[var(--accent-red)] tracking-[0.1em] mb-4">⚠ CRITICAL INTERVENTION</div>
@@ -139,7 +139,7 @@ export function PlusXCTA() {
           Join 500+ businesses already using ReplyIQ. No credit card. No setup fees. Results in 48 hours.
         </motion.p>
         
-        <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.9, ease: expoEase }} viewport={{ once: true }} className="mb-6">
+        <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.9, ease: expoEase as any }} viewport={{ once: true }} className="mb-6">
           <Link href="/login" className="font-sans text-[16px] text-white px-[40px] py-[16px] border border-white/20 rounded-md hover:bg-[rgba(124,58,237,0.15)] hover:border-[rgba(124,58,237,0.5)] transition-all duration-300 inline-block hover:scale-[1.03]">
             Open Dashboard →
           </Link>

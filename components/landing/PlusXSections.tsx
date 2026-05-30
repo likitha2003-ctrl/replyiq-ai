@@ -84,7 +84,7 @@ export function PlusXProblem() {
           ].map((row, i) => (
             <motion.div 
               key={i}
-              initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.8 + (i * 0.15), ease: expoEase }} viewport={{ once: true }}
+              initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.8 + (i * 0.15), ease: expoEase as any }} viewport={{ once: true }}
               className={`bg-[#0A0A0A] border border-white/5 border-l-2 p-5 flex justify-between items-center ${row.b === 'CRITICAL' ? 'border-l-[var(--accent-red)]' : 'border-l-amber-500'}`}
             >
               <div className="font-mono text-[14px] text-white">{row.t}</div>
@@ -129,7 +129,7 @@ export function PlusXLeadScoring() {
         </div>
 
         <div className="w-[60%] flex justify-end">
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease: expoEase }} viewport={{ once: true }} className="w-[380px] bg-[#0A0A0A] border border-white/5 p-8 shadow-[0_0_60px_rgba(124,58,237,0.1)] relative">
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 1, ease: expoEase as any }} viewport={{ once: true }} className="w-[380px] bg-[#0A0A0A] border border-white/5 p-8 shadow-[0_0_60px_rgba(124,58,237,0.1)] relative">
             <div className="flex justify-between items-start mb-8">
               <div>
                 <div className="text-[16px] text-white font-medium">Raj Patel</div>

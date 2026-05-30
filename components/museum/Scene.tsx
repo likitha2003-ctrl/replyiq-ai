@@ -70,10 +70,10 @@ function Corridor() {
         position={[0, -4, -125]}
         rotation={[0, 0, 0]}
       />
-      <Line points={[[-4, -3, 5], [-4, -3, -255]]} color="#7C3AED" lineWidth={0.5} opacity={0.15} transparent />
-      <Line points={[[4, -3, 5], [4, -3, -255]]} color="#7C3AED" lineWidth={0.5} opacity={0.15} transparent />
-      <Line points={[[-4, 5, 5], [-4, 5, -255]]} color="#7C3AED" lineWidth={0.3} opacity={0.08} transparent />
-      <Line points={[[4, 5, 5], [4, 5, -255]]} color="#7C3AED" lineWidth={0.3} opacity={0.08} transparent />
+      // @ts-ignore      <Line points={[[-4, -3, 5], [-4, -3, -255]]} color="#7C3AED" lineWidth={0.5} opacity={0.15} transparent />
+      // @ts-ignore      <Line points={[[4, -3, 5], [4, -3, -255]]} color="#7C3AED" lineWidth={0.5} opacity={0.15} transparent />
+      // @ts-ignore      <Line points={[[-4, 5, 5], [-4, 5, -255]]} color="#7C3AED" lineWidth={0.3} opacity={0.08} transparent />
+      // @ts-ignore      <Line points={[[4, 5, 5], [4, 5, -255]]} color="#7C3AED" lineWidth={0.3} opacity={0.08} transparent />
     </group>
   )
 }

@@ -165,7 +165,7 @@ export function TopBar({ collapsed }: TopBarProps) {
                     ) : (
                       notifications.slice(0, 10).map((n) => {
                         const cfg = typeConfig[n.type] ?? typeConfig.system;
-                        const Icon = cfg.icon;
+                        const Icon = cfg.icon as any;
                         return (
                           <div
                             key={n.id}

@@ -66,7 +66,8 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
       <div className="fixed bottom-5 right-5 z-[100] flex flex-col gap-3 w-80 max-w-[calc(100vw-2rem)]">
         <AnimatePresence mode="popLayout">
           {activeToasts.map((t) => {
-            const { icon: Icon, color, glow } = toastConfig[t.type] ?? toastConfig.system;
+            const { icon, color, glow } = toastConfig[t.type] ?? toastConfig.system;
+            const Icon = icon as any;
             return (
               <motion.div
                 key={t.id}

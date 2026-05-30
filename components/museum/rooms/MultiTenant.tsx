@@ -72,7 +72,8 @@ function TenantOrbiter({ tenant }: { tenant: any }) {
 
   return (
     <>
-      <line ref={lineRef} geometry={lineGeom}>
+      {/* @ts-ignore */}
+      <line ref={lineRef as any} geometry={lineGeom}>
         <lineBasicMaterial color={tenant.color} transparent opacity={0.3} />
       </line>
       <group ref={ref}>

@@ -77,9 +77,12 @@ function CrackLine({ angle, index }: { angle: number, index: number }) {
   ])
 
   return (
-    <line ref={ref} geometry={geometry}>
-      <lineBasicMaterial color="#EF4444" transparent opacity={0.1} />
-    </line>
+    <>
+      {/* @ts-ignore */}
+      <line ref={ref as any} geometry={geometry}>
+        <lineBasicMaterial color="#EF4444" transparent opacity={0.1} />
+      </line>
+    </>
   )
 }
 

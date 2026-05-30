@@ -13,7 +13,7 @@ export const CharReveal = ({ text, delay = 0, className = "" }: { text: string, 
           key={index}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: expoEase, delay: delay + (index * 0.02) }}
+          transition={{ duration: 0.8, ease: expoEase as any, delay: delay + (index * 0.02) }}
           className="inline-block"
         >
           {char === ' ' ? '\u00A0' : char}
@@ -65,7 +65,7 @@ export function PlusXHero() {
         </motion.p>
 
         <motion.div 
-          initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.9, ease: expoEase }}
+          initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.9, ease: expoEase as any }}
         >
           <Link href="/login" className="font-sans text-[15px] text-white px-[32px] py-[14px] border border-white/15 rounded-md hover:bg-white/5 hover:border-white/30 transition-all duration-200 inline-block">
             Open Dashboard →
@@ -88,7 +88,7 @@ export function PlusXHero() {
 
       {/* Decorative background cards peeking in */}
       <motion.div 
-        initial={{ x: -100, opacity: 0, rotate: -8 }} animate={{ x: 0, opacity: 0.35, rotate: -8 }} transition={{ duration: 1.5, delay: 1, ease: expoEase }}
+        initial={{ x: -100, opacity: 0, rotate: -8 }} animate={{ x: 0, opacity: 0.35, rotate: -8 }} transition={{ duration: 1.5, delay: 1, ease: expoEase as any }}
         className="absolute left-[-5%] top-[40%] w-[220px] bg-[#0A0A0A] border border-white/10 p-4 rounded-xl shadow-[0_0_40px_rgba(124,58,237,0.15)] blur-[0.5px]"
       >
         <div className="w-full h-24 border border-[var(--accent-purple)]/30 rounded-full flex items-center justify-center mb-2">
@@ -98,7 +98,7 @@ export function PlusXHero() {
       </motion.div>
 
       <motion.div 
-        initial={{ x: 100, opacity: 0, rotate: 6 }} animate={{ x: 0, opacity: 0.35, rotate: 6 }} transition={{ duration: 1.5, delay: 1.2, ease: expoEase }}
+        initial={{ x: 100, opacity: 0, rotate: 6 }} animate={{ x: 0, opacity: 0.35, rotate: 6 }} transition={{ duration: 1.5, delay: 1.2, ease: expoEase as any }}
         className="absolute right-[-5%] top-[30%] w-[220px] bg-[#0A0A0A] border border-white/10 p-4 rounded-xl shadow-[0_0_40px_rgba(239,68,68,0.15)] blur-[0.5px]"
       >
         <div className="w-full h-2 bg-red-500/20 rounded-full mb-2 overflow-hidden"><div className="w-[73%] h-full bg-red-500" /></div>
