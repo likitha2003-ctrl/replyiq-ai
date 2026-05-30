@@ -14,6 +14,7 @@ import ChannelBreakdown from '../../../components/analytics/ChannelBreakdown';
 import AIHandledGauge from '../../../components/analytics/AIHandledGauge';
 import ResponseDistribution from '../../../components/analytics/ResponseDistribution';
 import RecentLeads from '../../../components/analytics/RecentLeads';
+import RevenueIntelligence from '../../../components/analytics/RevenueIntelligence';
 
 // Simulated analytics data
 const initialSparkline = [
@@ -80,14 +81,14 @@ export default function AnalyticsPage() {
         {/* Stats Row Skeleton */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 shrink-0">
           {[...Array(4)].map((_, i) => (
-            <div key={i} className="h-28 rounded-2xl border border-white/[0.04] bg-slate-950/20 animate-pulse" />
+            <div key={i} className="h-28 rounded-2xl border border-white/[0.04] bg-zinc-950/20 animate-pulse" />
           ))}
         </div>
 
         {/* Charts Row Skeleton */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-          <div className="lg:col-span-3 h-80 rounded-2xl border border-white/[0.04] bg-slate-950/20 animate-pulse" />
-          <div className="lg:col-span-2 h-80 rounded-2xl border border-white/[0.04] bg-slate-950/20 animate-pulse" />
+          <div className="lg:col-span-3 h-80 rounded-2xl border border-white/[0.04] bg-zinc-950/20 animate-pulse" />
+          <div className="lg:col-span-2 h-80 rounded-2xl border border-white/[0.04] bg-zinc-950/20 animate-pulse" />
         </div>
       </div>
     );
@@ -106,13 +107,13 @@ export default function AnalyticsPage() {
               <span>AI Co-Pilot Running</span>
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-zinc-400 mt-1">
             Real-time latency metrics, channel breakdown metrics, and autonomous agent performance stats.
           </p>
         </div>
 
         {/* Top summary badge */}
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/[0.06] bg-slate-900/40 text-[10px] font-semibold text-slate-400">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/[0.06] bg-zinc-900/40 text-[10px] font-semibold text-zinc-400">
           <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
           System Health: 99.98%
         </div>
@@ -196,6 +197,9 @@ export default function AnalyticsPage() {
       <div className="w-full">
         <RecentLeads leads={leads} />
       </div>
+
+      {/* Feature 1: Revenue Intelligence */}
+      <RevenueIntelligence />
 
     </div>
   );

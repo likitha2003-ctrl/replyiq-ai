@@ -76,18 +76,18 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
                 exit={{ opacity: 0, x: 60, scale: 0.9 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 style={{ willChange: 'transform, opacity' }}
-                className={`flex items-start gap-3 p-4 rounded-xl border bg-slate-900/95 backdrop-blur-xl shadow-2xl ${glow}`}
+                className={`flex items-start gap-3 p-4 rounded-xl border bg-zinc-900/95 backdrop-blur-xl shadow-2xl ${glow}`}
               >
                 <div className={`p-2 rounded-lg border shrink-0 ${color}`}>
                   <Icon size={15} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-white leading-tight">{t.title}</p>
-                  <p className="text-[11px] text-slate-400 mt-0.5 leading-relaxed">{t.description}</p>
+                  <p className="text-[11px] text-zinc-400 mt-0.5 leading-relaxed">{t.description}</p>
                 </div>
                 <button
                   onClick={() => dismiss(t.id)}
-                  className="text-slate-600 hover:text-white transition-colors shrink-0 mt-0.5"
+                  className="text-zinc-600 hover:text-white transition-colors shrink-0 mt-0.5"
                 >
                   <X size={14} />
                 </button>

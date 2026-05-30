@@ -21,9 +21,9 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
               className={cn(
                 "h-7 w-7 rounded-full flex items-center justify-center text-xs font-bold border transition-all duration-300",
                 {
-                  "bg-purple-600 border-purple-500 text-white shadow-lg shadow-purple-500/20": isActive,
+                  "bg-zinc-600 border-zinc-500 text-white shadow-lg shadow-zinc-500/20": isActive,
                   "bg-emerald-500/10 border-emerald-500/30 text-emerald-400": isCompleted,
-                  "bg-slate-900 border-white/10 text-slate-500": !isActive && !isCompleted,
+                  "bg-zinc-900 border-white/10 text-zinc-500": !isActive && !isCompleted,
                 }
               )}
             >
@@ -35,7 +35,7 @@ export function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
               <div
                 className={cn("h-0.5 w-10 transition-all duration-500 ml-3", {
                   "bg-emerald-500/30": isCompleted,
-                  "bg-slate-800": !isCompleted,
+                  "bg-zinc-800": !isCompleted,
                 })}
               />
             )}

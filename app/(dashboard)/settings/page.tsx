@@ -8,11 +8,12 @@ import { useToast } from '../../../components/shared/ToastProvider';
 import {
   Settings, Key, Shield, MessageSquare, PhoneCall, Globe, Sparkles,
   Sliders, User, AlertTriangle, Users, Volume2, ShieldAlert,
-  SlidersHorizontal, BellRing, ClipboardCheck, Trash2, Mail, ExternalLink
+  SlidersHorizontal, BellRing, ClipboardCheck, Trash2, Mail, ExternalLink, Mic
 } from 'lucide-react';
 import Switch from '../../../components/ui/Switch';
+import VoiceAgentTab from '../../../components/settings/VoiceAgentTab';
 
-type ActiveTab = 'channels' | 'ai_behavior' | 'notifications' | 'team' | 'account';
+type ActiveTab = 'channels' | 'ai_behavior' | 'notifications' | 'team' | 'account' | 'voice_agent';
 
 interface TeamMember {
   name: string;
@@ -72,7 +73,7 @@ export default function SettingsPage() {
       email: 'admin@replyiq.com', 
       role: 'Admin', 
       avatar: 'SJ',
-      avatarBg: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
+      avatarBg: 'bg-zinc-500/20 text-zinc-400 border-zinc-500/30',
       statusText: 'Active',
       statusDot: 'bg-emerald-400',
       joinedText: 'Owner · Since Jan 2026',
@@ -95,7 +96,7 @@ export default function SettingsPage() {
       avatar: 'PM',
       avatarBg: 'bg-amber-500/20 text-amber-400 border-amber-500/30',
       statusText: 'Invited',
-      statusDot: 'bg-slate-500',
+      statusDot: 'bg-zinc-500',
       joinedText: 'Invitation pending · 2 days ago',
       isPending: true
     },
@@ -132,9 +133,9 @@ export default function SettingsPage() {
         email: inviteEmail,
         role: inviteRole,
         avatar: inviteEmail.substring(0, 2).toUpperCase(),
-        avatarBg: 'bg-slate-500/20 text-slate-400 border-slate-500/30',
+        avatarBg: 'bg-zinc-500/20 text-zinc-400 border-zinc-500/30',
         statusText: 'Invited',
-        statusDot: 'bg-slate-500',
+        statusDot: 'bg-zinc-500',
         joinedText: 'Invitation pending · Just now',
         isPending: true
       },
@@ -167,7 +168,7 @@ export default function SettingsPage() {
       <div className="flex items-center justify-between shrink-0">
         <div>
           <h1 className="text-xl font-extrabold text-white tracking-wide font-heading">Settings Control Room</h1>
-          <p className="text-xs text-slate-400 mt-1">Configure co-pilot autopilot, linked gateway channels, team permissions, and account defaults.</p>
+          <p className="text-xs text-zinc-400 mt-1">Configure co-pilot autopilot, linked gateway channels, team permissions, and account defaults.</p>
         </div>
       </div>
 
@@ -179,6 +180,7 @@ export default function SettingsPage() {
           {[
             { id: 'channels', label: 'Gateway Channels', icon: Globe },
             { id: 'ai_behavior', label: 'AI Autopilot & Behavior', icon: Sliders },
+            { id: 'voice_agent', label: 'Voice Agent', icon: Mic },
             { id: 'notifications', label: 'Notifications', icon: BellRing },
             { id: 'team', label: 'Team Registry', icon: Users },
             { id: 'account', label: 'Account Profile', icon: User },
@@ -191,10 +193,10 @@ export default function SettingsPage() {
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-left text-xs font-semibold tracking-wide transition-all whitespace-nowrap md:whitespace-normal cursor-pointer ${
                   isSelected
                     ? 'bg-violet-500/10 text-violet-300 border border-violet-500/20 shadow-md'
-                    : 'text-slate-400 border border-transparent hover:text-white hover:bg-white/[0.02]'
+                    : 'text-zinc-400 border border-transparent hover:text-white hover:bg-white/[0.02]'
                 }`}
               >
-                <tab.icon size={14} className={isSelected ? 'text-violet-400' : 'text-slate-500'} />
+                <tab.icon size={14} className={isSelected ? 'text-violet-400' : 'text-zinc-500'} />
                 <span>{tab.label}</span>
               </button>
             );
@@ -202,7 +204,7 @@ export default function SettingsPage() {
         </div>
 
         {/* Right pane: Active Tab Content Area */}
-        <div className="flex-1 overflow-y-auto rounded-2xl border border-white/[0.04] bg-slate-950/20 backdrop-blur-xl p-6 scrollbar-thin scrollbar-thumb-white/5 scrollbar-track-transparent">
+        <div className="flex-1 overflow-y-auto rounded-2xl border border-white/[0.04] bg-zinc-950/20 backdrop-blur-xl p-6 scrollbar-thin scrollbar-thumb-white/5 scrollbar-track-transparent">
           <AnimatePresence mode="wait">
             {activeTab === 'channels' && (
               <motion.div
@@ -214,12 +216,12 @@ export default function SettingsPage() {
               >
                 <div>
                   <h3 className="text-sm font-bold text-white tracking-wide">Gateway Channels</h3>
-                  <span className="text-[10px] text-slate-500 block mt-0.5">Integrate WhatsApp, Instagram, and website chat channels directly to autonomous co-pilot engines.</span>
+                  <span className="text-[10px] text-zinc-500 block mt-0.5">Integrate WhatsApp, Instagram, and website chat channels directly to autonomous co-pilot engines.</span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* WhatsApp */}
-                  <div className="p-4 rounded-xl border border-white/[0.04] bg-slate-900/40 hover:border-emerald-500/30 transition-all flex flex-col justify-between h-48 relative overflow-hidden group">
+                  <div className="p-4 rounded-xl border border-white/[0.04] bg-zinc-900/40 hover:border-emerald-500/30 transition-all flex flex-col justify-between h-48 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-emerald-500/[0.04] to-transparent pointer-events-none" />
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-2.5">
@@ -228,7 +230,7 @@ export default function SettingsPage() {
                         </div>
                         <div>
                           <span className="text-xs font-bold text-white block">WhatsApp Business</span>
-                          <span className="text-[9px] text-slate-500">Official Twilio Gateway</span>
+                          <span className="text-[9px] text-zinc-500">Official Twilio Gateway</span>
                         </div>
                       </div>
                       <Switch
@@ -240,13 +242,13 @@ export default function SettingsPage() {
                       />
                     </div>
                     <div>
-                      <div className="flex items-center gap-1.5 text-[9px] text-slate-500 font-semibold mb-3">
+                      <div className="flex items-center gap-1.5 text-[9px] text-zinc-500 font-semibold mb-3">
                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_#10b981]" />
                         <span>Connected • Last Sync 2m ago</span>
                       </div>
                       <button
                         onClick={() => setActiveConfigModal('whatsapp')}
-                        className="w-full flex items-center justify-center py-2 rounded-lg border border-white/5 bg-white/[0.02] text-[10px] font-bold text-slate-300 hover:bg-emerald-500/10 hover:text-emerald-400 hover:border-emerald-500/20 transition-all cursor-pointer"
+                        className="w-full flex items-center justify-center py-2 rounded-lg border border-white/5 bg-white/[0.02] text-[10px] font-bold text-zinc-300 hover:bg-emerald-500/10 hover:text-emerald-400 hover:border-emerald-500/20 transition-all cursor-pointer"
                       >
                         Configure Gateway
                       </button>
@@ -254,7 +256,7 @@ export default function SettingsPage() {
                   </div>
 
                   {/* Instagram */}
-                  <div className="p-4 rounded-xl border border-white/[0.04] bg-slate-900/40 hover:border-pink-500/30 transition-all flex flex-col justify-between h-48 relative overflow-hidden group">
+                  <div className="p-4 rounded-xl border border-white/[0.04] bg-zinc-900/40 hover:border-pink-500/30 transition-all flex flex-col justify-between h-48 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-pink-500/[0.04] to-transparent pointer-events-none" />
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-2.5">
@@ -263,7 +265,7 @@ export default function SettingsPage() {
                         </div>
                         <div>
                           <span className="text-xs font-bold text-white block">Instagram DMs</span>
-                          <span className="text-[9px] text-slate-500">Official Meta Integration</span>
+                          <span className="text-[9px] text-zinc-500">Official Meta Integration</span>
                         </div>
                       </div>
                       <Switch
@@ -275,13 +277,13 @@ export default function SettingsPage() {
                       />
                     </div>
                     <div>
-                      <div className="flex items-center gap-1.5 text-[9px] text-slate-500 font-semibold mb-3">
+                      <div className="flex items-center gap-1.5 text-[9px] text-zinc-500 font-semibold mb-3">
                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_#10b981]" />
                         <span>Connected • Last Sync 5m ago</span>
                       </div>
                       <button
                         onClick={() => setActiveConfigModal('instagram')}
-                        className="w-full flex items-center justify-center py-2 rounded-lg border border-white/5 bg-white/[0.02] text-[10px] font-bold text-slate-300 hover:bg-pink-500/10 hover:text-pink-400 hover:border-pink-500/20 transition-all cursor-pointer"
+                        className="w-full flex items-center justify-center py-2 rounded-lg border border-white/5 bg-white/[0.02] text-[10px] font-bold text-zinc-300 hover:bg-pink-500/10 hover:text-pink-400 hover:border-pink-500/20 transition-all cursor-pointer"
                       >
                         Configure Gateway
                       </button>
@@ -289,7 +291,7 @@ export default function SettingsPage() {
                   </div>
 
                   {/* Website */}
-                  <div className="p-4 rounded-xl border border-white/[0.04] bg-slate-900/40 hover:border-blue-500/30 transition-all flex flex-col justify-between h-48 relative overflow-hidden group">
+                  <div className="p-4 rounded-xl border border-white/[0.04] bg-zinc-900/40 hover:border-blue-500/30 transition-all flex flex-col justify-between h-48 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-blue-500/[0.04] to-transparent pointer-events-none" />
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-2.5">
@@ -298,7 +300,7 @@ export default function SettingsPage() {
                         </div>
                         <div>
                           <span className="text-xs font-bold text-white block">Website Chat Widget</span>
-                          <span className="text-[9px] text-slate-500">Dynamic UI Widget</span>
+                          <span className="text-[9px] text-zinc-500">Dynamic UI Widget</span>
                         </div>
                       </div>
                       <Switch
@@ -310,13 +312,13 @@ export default function SettingsPage() {
                       />
                     </div>
                     <div>
-                      <div className="flex items-center gap-1.5 text-[9px] text-slate-500 font-semibold mb-3">
+                      <div className="flex items-center gap-1.5 text-[9px] text-zinc-500 font-semibold mb-3">
                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_#10b981]" />
                         <span>Connected • Live and Active</span>
                       </div>
                       <button
                         onClick={() => setActiveConfigModal('website')}
-                        className="w-full flex items-center justify-center py-2 rounded-lg border border-white/5 bg-white/[0.02] text-[10px] font-bold text-slate-300 hover:bg-blue-500/10 hover:text-blue-400 hover:border-blue-500/20 transition-all cursor-pointer"
+                        className="w-full flex items-center justify-center py-2 rounded-lg border border-white/5 bg-white/[0.02] text-[10px] font-bold text-zinc-300 hover:bg-blue-500/10 hover:text-blue-400 hover:border-blue-500/20 transition-all cursor-pointer"
                       >
                         Configure Gateway
                       </button>
@@ -336,7 +338,7 @@ export default function SettingsPage() {
               >
                 <div>
                   <h3 className="text-sm font-bold text-white tracking-wide">AI Autopilot & Core Behavior</h3>
-                  <span className="text-[10px] text-slate-500 block mt-0.5">Define co-pilot responses, automation status, and structural tone controls.</span>
+                  <span className="text-[10px] text-zinc-500 block mt-0.5">Define co-pilot responses, automation status, and structural tone controls.</span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -344,7 +346,7 @@ export default function SettingsPage() {
                   <div className="space-y-5">
                     {/* Auto mode pill select */}
                     <div className="space-y-1.5">
-                      <label className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">AI Operations Mode</label>
+                      <label className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">AI Operations Mode</label>
                       <div className="flex bg-white/[0.02] border border-white/[0.04] p-1 rounded-xl w-fit">
                         <button
                           onClick={() => {
@@ -354,7 +356,7 @@ export default function SettingsPage() {
                           className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                             mode === 'auto'
                               ? 'bg-violet-500/15 text-violet-300 border border-violet-500/20'
-                              : 'text-slate-400 hover:text-white'
+                              : 'text-zinc-400 hover:text-white'
                           }`}
                         >
                           Auto Autopilot
@@ -367,7 +369,7 @@ export default function SettingsPage() {
                           className={`px-4 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                             mode === 'supervised'
                               ? 'bg-violet-500/15 text-violet-300 border border-violet-500/20'
-                              : 'text-slate-400 hover:text-white'
+                              : 'text-zinc-400 hover:text-white'
                           }`}
                         >
                           Supervised Co-pilot
@@ -377,7 +379,7 @@ export default function SettingsPage() {
 
                     {/* Auto Reply delay slider */}
                     <div className="space-y-1.5">
-                      <div className="flex items-center justify-between text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                      <div className="flex items-center justify-between text-[10px] text-zinc-400 font-bold uppercase tracking-wider">
                         <span>Auto-reply dispatch delay</span>
                         <span className="text-violet-400">{delay} seconds</span>
                       </div>
@@ -393,11 +395,11 @@ export default function SettingsPage() {
 
                     {/* Dropdowns */}
                     <div className="space-y-1.5">
-                      <label className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Max Response Length Limit</label>
+                      <label className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Max Response Length Limit</label>
                       <select
                         value={maxLength}
                         onChange={(e) => setMaxLength(e.target.value)}
-                        className="w-full px-3 py-2 rounded-lg border border-white/10 bg-slate-950/40 text-xs text-white outline-none focus:ring-1 focus:ring-purple-500 transition-all"
+                        className="w-full px-3 py-2 rounded-lg border border-white/10 bg-zinc-950/40 text-xs text-white outline-none focus:ring-1 focus:ring-zinc-500 transition-all"
                       >
                         <option value="short">Short (&lt; 50 words)</option>
                         <option value="medium">Medium (&lt; 150 words)</option>
@@ -410,7 +412,7 @@ export default function SettingsPage() {
                   <div className="space-y-5">
                     {/* Tones */}
                     <div className="space-y-2">
-                      <label className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">AI Voice Tone Selection</label>
+                      <label className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">AI Voice Tone Selection</label>
                       <div className="grid grid-cols-3 gap-2">
                         {[
                           { id: 'professional', label: '💼 Professional' },
@@ -425,7 +427,7 @@ export default function SettingsPage() {
                               className={`p-2.5 rounded-xl border text-center text-[10px] font-bold transition-all cursor-pointer ${
                                 isSelected
                                   ? 'border-violet-500/40 bg-violet-500/10 text-violet-300'
-                                  : 'border-white/5 bg-slate-950/40 hover:bg-slate-900/50 text-slate-400 hover:text-white'
+                                  : 'border-white/5 bg-zinc-950/40 hover:bg-zinc-900/50 text-zinc-400 hover:text-white'
                               }`}
                             >
                               {tItem.label}
@@ -440,7 +442,7 @@ export default function SettingsPage() {
                       <div className="flex items-center justify-between">
                         <div>
                           <span className="text-xs font-semibold text-white">AI Lead Intent Detection</span>
-                          <p className="text-[9px] text-slate-500">Automatically flag hot buyer inquiries.</p>
+                          <p className="text-[9px] text-zinc-500">Automatically flag hot buyer inquiries.</p>
                         </div>
                         <Switch checked={leadDetect} onCheckedChange={(checked) => setLeadDetect(checked)} />
                       </div>
@@ -448,7 +450,7 @@ export default function SettingsPage() {
                       <div className="flex items-center justify-between">
                         <div>
                           <span className="text-xs font-semibold text-white">AI Sentiment Analysis</span>
-                          <p className="text-[9px] text-slate-500">Calibrate messages by emotional intensity.</p>
+                          <p className="text-[9px] text-zinc-500">Calibrate messages by emotional intensity.</p>
                         </div>
                         <Switch checked={sentimentAnalysis} onCheckedChange={(checked) => setSentimentAnalysis(checked)} />
                       </div>
@@ -460,12 +462,16 @@ export default function SettingsPage() {
                   <button
                     onClick={handleSaveAIBehavior}
                     disabled={isSaving}
-                    className="px-4 py-2 rounded-lg text-xs font-bold bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white shadow-lg cursor-pointer disabled:opacity-50"
+                    className="px-4 py-2 rounded-lg text-xs font-bold bg-gradient-to-r from-violet-600 to-zinc-600 hover:from-violet-500 hover:to-zinc-500 text-white shadow-lg cursor-pointer disabled:opacity-50"
                   >
                     {isSaving ? 'Syncing...' : 'Save AI Configurations'}
                   </button>
                 </div>
               </motion.div>
+            )}
+
+            {activeTab === 'voice_agent' && (
+              <VoiceAgentTab key="voice_agent" />
             )}
 
             {activeTab === 'notifications' && (
@@ -478,7 +484,7 @@ export default function SettingsPage() {
               >
                 <div>
                   <h3 className="text-sm font-bold text-white tracking-wide">Notification Settings</h3>
-                  <span className="text-[10px] text-slate-500 block mt-0.5">Control live browser push alerts, threshold triggers, and recap emails.</span>
+                  <span className="text-[10px] text-zinc-500 block mt-0.5">Control live browser push alerts, threshold triggers, and recap emails.</span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -487,7 +493,7 @@ export default function SettingsPage() {
                     <div className="flex items-center justify-between">
                       <div>
                         <span className="text-xs font-semibold text-white">New Message Inbound</span>
-                        <p className="text-[9px] text-slate-500">Alert on new queries across all channels.</p>
+                        <p className="text-[9px] text-zinc-500">Alert on new queries across all channels.</p>
                       </div>
                       <Switch checked={notifs.newMessage} onCheckedChange={(c) => setNotifs({ ...notifs, newMessage: c })} />
                     </div>
@@ -495,7 +501,7 @@ export default function SettingsPage() {
                     <div className="flex items-center justify-between">
                       <div>
                         <span className="text-xs font-semibold text-white">AI Lead Detected</span>
-                        <p className="text-[9px] text-slate-500">Push notification when high-value leads are identified.</p>
+                        <p className="text-[9px] text-zinc-500">Push notification when high-value leads are identified.</p>
                       </div>
                       <Switch checked={notifs.leadDetected} onCheckedChange={(c) => setNotifs({ ...notifs, leadDetected: c })} />
                     </div>
@@ -503,7 +509,7 @@ export default function SettingsPage() {
                     <div className="flex items-center justify-between">
                       <div>
                         <span className="text-xs font-semibold text-white">AI Confidence Warning</span>
-                        <p className="text-[9px] text-slate-500">Trigger alert if AI confidence drops below target 80%.</p>
+                        <p className="text-[9px] text-zinc-500">Trigger alert if AI confidence drops below target 80%.</p>
                       </div>
                       <Switch checked={notifs.confidenceLow} onCheckedChange={(c) => setNotifs({ ...notifs, confidenceLow: c })} />
                     </div>
@@ -511,18 +517,18 @@ export default function SettingsPage() {
                     <div className="flex items-center justify-between">
                       <div>
                         <span className="text-xs font-semibold text-white">Daily Summary Recaps</span>
-                        <p className="text-[9px] text-slate-500">Dispatch morning digest performance emails.</p>
+                        <p className="text-[9px] text-zinc-500">Dispatch morning digest performance emails.</p>
                       </div>
                       <Switch checked={notifs.dailySummary} onCheckedChange={(c) => setNotifs({ ...notifs, dailySummary: c })} />
                     </div>
                   </div>
 
                   {/* Live Toast Preview Box */}
-                  <div className="p-5 rounded-xl border border-white/[0.04] bg-slate-900/30 flex flex-col justify-between h-48 relative overflow-hidden">
+                  <div className="p-5 rounded-xl border border-white/[0.04] bg-zinc-900/30 flex flex-col justify-between h-48 relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-violet-500/[0.04] to-transparent pointer-events-none" />
                     <div>
-                      <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Notification Simulator</span>
-                      <p className="text-[10px] text-slate-400 leading-relaxed font-light">
+                      <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest block mb-2">Notification Simulator</span>
+                      <p className="text-[10px] text-zinc-400 leading-relaxed font-light">
                         Test your active notifications. Click the trigger below to launch a styled real-time system co-pilot alert preview.
                       </p>
                     </div>
@@ -535,7 +541,7 @@ export default function SettingsPage() {
                           description: 'Sarah Jenkins has inquired about pricing plans.',
                         });
                       }}
-                      className="w-full flex items-center justify-center gap-1.5 py-2 rounded-lg border border-white/5 bg-white/[0.02] text-[10px] font-bold text-slate-300 hover:bg-violet-500/10 hover:text-violet-300 hover:border-violet-500/20 transition-all cursor-pointer"
+                      className="w-full flex items-center justify-center gap-1.5 py-2 rounded-lg border border-white/5 bg-white/[0.02] text-[10px] font-bold text-zinc-300 hover:bg-violet-500/10 hover:text-violet-300 hover:border-violet-500/20 transition-all cursor-pointer"
                     >
                       <BellRing size={10} /> Launch Alert Preview
                     </button>
@@ -555,12 +561,12 @@ export default function SettingsPage() {
                 <div className="flex items-center justify-between pb-2 border-b border-white/[0.03]">
                   <div>
                     <h3 className="text-sm font-bold text-white tracking-wide">Team Registry</h3>
-                    <span className="text-[10px] text-slate-500 block mt-0.5">Manage co-pilot access and agent permissions across your workspace.</span>
+                    <span className="text-[10px] text-zinc-500 block mt-0.5">Manage co-pilot access and agent permissions across your workspace.</span>
                   </div>
 
                   <button
                     onClick={() => setShowInviteModal(true)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-xs font-bold text-white transition-all cursor-pointer shadow-lg shadow-purple-500/20"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-zinc-600 to-zinc-600 hover:from-zinc-500 hover:to-zinc-500 text-xs font-bold text-white transition-all cursor-pointer shadow-lg shadow-zinc-500/20"
                   >
                     <Users size={12} /> Invite Member
                   </button>
@@ -582,38 +588,38 @@ export default function SettingsPage() {
                             <span className="text-sm font-bold text-white block">{member.name}</span>
                             <span className={`inline-flex px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider border ${
                               member.role === 'Admin'
-                                ? 'bg-purple-500/15 text-purple-400 border-purple-500/20'
+                                ? 'bg-zinc-500/15 text-zinc-400 border-zinc-500/20'
                                 : member.role === 'Agent'
                                 ? 'bg-blue-500/15 text-blue-400 border-blue-500/20'
-                                : 'bg-slate-500/15 text-slate-400 border-white/5'
+                                : 'bg-zinc-500/15 text-zinc-400 border-white/5'
                             }`}>
                               {member.role}
                             </span>
                           </div>
                           <div className="flex items-center gap-3 mt-1.5">
-                            <span className="text-[11px] text-slate-400">{member.email}</span>
-                            <span className="text-[11px] text-slate-600">•</span>
+                            <span className="text-[11px] text-zinc-400">{member.email}</span>
+                            <span className="text-[11px] text-zinc-600">•</span>
                             <div className="flex items-center gap-1.5">
                               <span className={`h-1.5 w-1.5 rounded-full ${member.statusDot}`} />
-                              <span className="text-[11px] text-slate-300">{member.statusText}</span>
+                              <span className="text-[11px] text-zinc-300">{member.statusText}</span>
                             </div>
-                            <span className="text-[11px] text-slate-600">•</span>
-                            <span className="text-[11px] text-slate-500">{member.joinedText}</span>
+                            <span className="text-[11px] text-zinc-600">•</span>
+                            <span className="text-[11px] text-zinc-500">{member.joinedText}</span>
                           </div>
                         </div>
                       </div>
 
                       <div className="flex items-center gap-2 mt-3 md:mt-0 pt-3 md:pt-0 border-t border-white/5 md:border-0 justify-end">
                         {member.isOwner ? (
-                          <span className="text-[11px] text-slate-500 italic px-3 py-1.5">Cannot modify owner</span>
+                          <span className="text-[11px] text-zinc-500 italic px-3 py-1.5">Cannot modify owner</span>
                         ) : member.isPending ? (
                           <>
-                            <button className="px-3 py-1.5 rounded-lg border border-white/5 bg-white/[0.02] hover:bg-white/5 text-[11px] font-medium text-slate-300 hover:text-white transition-colors cursor-pointer">Resend Invite</button>
+                            <button className="px-3 py-1.5 rounded-lg border border-white/5 bg-white/[0.02] hover:bg-white/5 text-[11px] font-medium text-zinc-300 hover:text-white transition-colors cursor-pointer">Resend Invite</button>
                             <button className="px-3 py-1.5 rounded-lg border border-rose-500/20 bg-rose-500/5 hover:bg-rose-500/10 text-[11px] font-medium text-rose-400 hover:text-rose-300 transition-colors cursor-pointer">Cancel</button>
                           </>
                         ) : (
                           <>
-                            <button className="px-3 py-1.5 rounded-lg border border-white/5 bg-white/[0.02] hover:bg-white/5 text-[11px] font-medium text-slate-300 hover:text-white transition-colors cursor-pointer">Edit Role</button>
+                            <button className="px-3 py-1.5 rounded-lg border border-white/5 bg-white/[0.02] hover:bg-white/5 text-[11px] font-medium text-zinc-300 hover:text-white transition-colors cursor-pointer">Edit Role</button>
                             <button className="px-3 py-1.5 rounded-lg border border-rose-500/20 bg-rose-500/5 hover:bg-rose-500/10 text-[11px] font-medium text-rose-400 hover:text-rose-300 transition-colors cursor-pointer">Remove</button>
                           </>
                         )}
@@ -634,29 +640,29 @@ export default function SettingsPage() {
               >
                 <div>
                   <h3 className="text-sm font-bold text-white tracking-wide">Account Identity Profile</h3>
-                  <span className="text-[10px] text-slate-500 block mt-0.5">Manage core business attributes, registration identity, and critical terminations.</span>
+                  <span className="text-[10px] text-zinc-500 block mt-0.5">Manage core business attributes, registration identity, and critical terminations.</span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Profile setup */}
                   <div className="space-y-4">
                     <div className="space-y-1.5">
-                      <label className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Business / Workspace Name</label>
+                      <label className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Business / Workspace Name</label>
                       <input
                         type="text"
                         value={businessName}
                         onChange={(e) => setBusinessName(e.target.value)}
                         placeholder="e.g. Acme Corp"
-                        className="w-full px-3 py-2 rounded-lg border border-white/10 bg-slate-950/40 text-xs text-white placeholder-slate-500 outline-none focus:ring-1 focus:ring-purple-500 transition-all"
+                        className="w-full px-3 py-2 rounded-lg border border-white/10 bg-zinc-950/40 text-xs text-white placeholder-zinc-500 outline-none focus:ring-1 focus:ring-zinc-500 transition-all"
                       />
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Business Type</label>
+                      <label className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Business Type</label>
                       <select
                         value={businessType}
                         onChange={(e) => setBusinessType(e.target.value)}
-                        className="w-full px-3 py-2 rounded-lg border border-white/10 bg-slate-950/40 text-xs text-white outline-none focus:ring-1 focus:ring-purple-500 transition-all"
+                        className="w-full px-3 py-2 rounded-lg border border-white/10 bg-zinc-950/40 text-xs text-white outline-none focus:ring-1 focus:ring-zinc-500 transition-all"
                       >
                         <option value="restaurant">Restaurant / Bistro</option>
                         <option value="ecommerce">E-Commerce / Retail</option>
@@ -667,12 +673,12 @@ export default function SettingsPage() {
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Owner Account Email</label>
+                      <label className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Owner Account Email</label>
                       <input
                         disabled
                         type="email"
                         value="admin@replyiq.com"
-                        className="w-full px-3 py-2 rounded-lg border border-white/5 bg-slate-950/20 text-xs text-slate-500 outline-none select-none cursor-not-allowed font-medium"
+                        className="w-full px-3 py-2 rounded-lg border border-white/5 bg-zinc-950/20 text-xs text-zinc-500 outline-none select-none cursor-not-allowed font-medium"
                       />
                     </div>
                   </div>
@@ -731,13 +737,13 @@ export default function SettingsPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActiveConfigModal(null)}
-              className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+              className="absolute inset-0 bg-zinc-950/80 backdrop-blur-sm"
             />
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-md rounded-2xl border border-white/10 bg-slate-900 p-6 shadow-2xl z-10"
+              className="relative w-full max-w-md rounded-2xl border border-white/10 bg-zinc-900 p-6 shadow-2xl z-10"
             >
               <div className="flex items-center gap-2 pb-3 border-b border-white/5 mb-4">
                 <Settings size={16} className="text-violet-400" />
@@ -748,30 +754,30 @@ export default function SettingsPage() {
 
               {activeConfigModal === 'website' ? (
                 <div className="space-y-4">
-                  <p className="text-[10px] text-slate-400 leading-relaxed font-light">
-                    Install the live website chat widget co-pilot client. Paste the following script block directly before the closing <code className="text-violet-300 font-mono text-[9px] bg-slate-950 px-1 py-0.5 rounded">&lt;/body&gt;</code> element on your site:
+                  <p className="text-[10px] text-zinc-400 leading-relaxed font-light">
+                    Install the live website chat widget co-pilot client. Paste the following script block directly before the closing <code className="text-violet-300 font-mono text-[9px] bg-zinc-950 px-1 py-0.5 rounded">&lt;/body&gt;</code> element on your site:
                   </p>
-                  <pre className="p-3 rounded-lg bg-slate-950 text-[9px] font-mono text-cyan-300 overflow-x-auto leading-relaxed border border-white/5 select-all cursor-pointer">
+                  <pre className="p-3 rounded-lg bg-zinc-950 text-[9px] font-mono text-cyan-300 overflow-x-auto leading-relaxed border border-white/5 select-all cursor-pointer">
                     {`<script src="https://cdn.replyiq-ai.com/widget.js" data-workspace-id="rp-wsp-8849" defer></script>`}
                   </pre>
-                  <p className="text-[9px] text-slate-500 italic">💡 The widget matches dark/light mode configurations dynamically.</p>
+                  <p className="text-[9px] text-zinc-500 italic">💡 The widget matches dark/light mode configurations dynamically.</p>
                 </div>
               ) : (
                 <div className="space-y-4">
                   <div className="space-y-1.5">
-                    <label className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Gateway Endpoint URL</label>
+                    <label className="text-[9px] text-zinc-500 font-bold uppercase tracking-wider">Gateway Endpoint URL</label>
                     <input
                       type="text"
                       defaultValue="https://api.replyiq-ai.com/v1/webhook"
-                      className="w-full px-3 py-2 rounded-lg border border-white/10 bg-slate-950/40 text-[10px] text-white outline-none"
+                      className="w-full px-3 py-2 rounded-lg border border-white/10 bg-zinc-950/40 text-[10px] text-white outline-none"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Gateway Access Token</label>
+                    <label className="text-[9px] text-zinc-500 font-bold uppercase tracking-wider">Gateway Access Token</label>
                     <input
                       type="password"
                       defaultValue="rp_tkn_8849c25f"
-                      className="w-full px-3 py-2 rounded-lg border border-white/10 bg-slate-950/40 text-[10px] text-white outline-none"
+                      className="w-full px-3 py-2 rounded-lg border border-white/10 bg-zinc-950/40 text-[10px] text-white outline-none"
                     />
                   </div>
                 </div>
@@ -780,7 +786,7 @@ export default function SettingsPage() {
               <div className="flex justify-end gap-2.5 mt-6 pt-3 border-t border-white/5">
                 <button
                   onClick={() => setActiveConfigModal(null)}
-                  className="px-3.5 py-2 rounded-lg border border-white/5 text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-all cursor-pointer"
+                  className="px-3.5 py-2 rounded-lg border border-white/5 text-[10px] font-bold uppercase tracking-wider text-zinc-400 hover:text-white transition-all cursor-pointer"
                 >
                   Cancel
                 </button>
@@ -808,47 +814,47 @@ export default function SettingsPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowInviteModal(false)}
-              className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+              className="absolute inset-0 bg-zinc-950/80 backdrop-blur-sm"
             />
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-md rounded-2xl border border-white/10 bg-slate-900/90 backdrop-blur-xl p-6 shadow-2xl z-10"
+              className="relative w-full max-w-md rounded-2xl border border-white/10 bg-zinc-900/90 backdrop-blur-xl p-6 shadow-2xl z-10"
             >
               <div className="flex items-center gap-2 pb-3 border-b border-white/5 mb-4">
-                <Users size={16} className="text-purple-400" />
+                <Users size={16} className="text-zinc-400" />
                 <h3 className="text-xs font-bold text-white uppercase tracking-wider">Invite Team Member</h3>
               </div>
 
               <form onSubmit={handleInviteSubmit} className="space-y-5">
                 <div className="space-y-1.5">
-                  <label className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Email Address</label>
+                  <label className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Email Address</label>
                   <input
                     required
                     type="email"
                     placeholder="e.g. agent@replyiq.com"
                     value={inviteEmail}
                     onChange={(e) => setInviteEmail(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg border border-white/10 bg-slate-950/40 text-sm text-white outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all"
+                    className="w-full px-3 py-2 rounded-lg border border-white/10 bg-zinc-950/40 text-sm text-white outline-none focus:border-zinc-500/50 focus:ring-1 focus:ring-zinc-500/50 transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Registry Role Permissions</label>
+                  <label className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">Registry Role Permissions</label>
                   <select
                     value={inviteRole}
                     onChange={(e) => setInviteRole(e.target.value as any)}
-                    className="w-full px-3 py-2 rounded-lg border border-white/10 bg-slate-950/40 text-sm text-white outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all"
+                    className="w-full px-3 py-2 rounded-lg border border-white/10 bg-zinc-950/40 text-sm text-white outline-none focus:border-zinc-500/50 focus:ring-1 focus:ring-zinc-500/50 transition-all"
                   >
                     <option value="Admin">Admin</option>
                     <option value="Agent">Agent</option>
                     <option value="Viewer">Viewer</option>
                   </select>
                   <div className="pt-1 pl-1">
-                    {inviteRole === 'Admin' && <p className="text-[10px] text-slate-400">Full access + billing</p>}
-                    {inviteRole === 'Agent' && <p className="text-[10px] text-slate-400">Can reply + manage conversations</p>}
-                    {inviteRole === 'Viewer' && <p className="text-[10px] text-slate-400">Read-only access</p>}
+                    {inviteRole === 'Admin' && <p className="text-[10px] text-zinc-400">Full access + billing</p>}
+                    {inviteRole === 'Agent' && <p className="text-[10px] text-zinc-400">Can reply + manage conversations</p>}
+                    {inviteRole === 'Viewer' && <p className="text-[10px] text-zinc-400">Read-only access</p>}
                   </div>
                 </div>
 
@@ -856,13 +862,13 @@ export default function SettingsPage() {
                   <button
                     type="button"
                     onClick={() => setShowInviteModal(false)}
-                    className="text-xs font-semibold text-slate-400 hover:text-white transition-colors cursor-pointer"
+                    className="text-xs font-semibold text-zinc-400 hover:text-white transition-colors cursor-pointer"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-xs font-bold text-white transition-all cursor-pointer shadow-lg shadow-purple-500/20"
+                    className="px-4 py-2 rounded-lg bg-gradient-to-r from-zinc-600 to-zinc-600 hover:from-zinc-500 hover:to-zinc-500 text-xs font-bold text-white transition-all cursor-pointer shadow-lg shadow-zinc-500/20"
                   >
                     Send Invitation
                   </button>
@@ -882,13 +888,13 @@ export default function SettingsPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowDeleteModal(false)}
-              className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+              className="absolute inset-0 bg-zinc-950/80 backdrop-blur-sm"
             />
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-md rounded-2xl border border-rose-500/30 bg-slate-900 p-6 shadow-2xl z-10"
+              className="relative w-full max-w-md rounded-2xl border border-rose-500/30 bg-zinc-900 p-6 shadow-2xl z-10"
             >
               <div className="flex items-center gap-2 pb-3 border-b border-rose-500/20 mb-4">
                 <AlertTriangle size={16} className="text-rose-400" />
@@ -896,7 +902,7 @@ export default function SettingsPage() {
               </div>
 
               <div className="space-y-4">
-                <p className="text-[10px] text-slate-400 leading-relaxed font-light">
+                <p className="text-[10px] text-zinc-400 leading-relaxed font-light">
                   This actions is completely irreversible. All lead entries, client conversations, agent presets, and configuration parameters will be removed permanently.
                 </p>
                 <p className="text-[10px] text-white font-semibold">
@@ -908,14 +914,14 @@ export default function SettingsPage() {
                   placeholder="CONFIRM"
                   value={deleteConfirmText}
                   onChange={(e) => setDeleteConfirmText(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-rose-500/30 bg-slate-950/40 text-xs text-rose-300 font-bold tracking-widest outline-none text-center"
+                  className="w-full px-3 py-2 rounded-lg border border-rose-500/30 bg-zinc-950/40 text-xs text-rose-300 font-bold tracking-widest outline-none text-center"
                 />
               </div>
 
               <div className="flex justify-end gap-2.5 mt-6 pt-3 border-t border-white/5">
                 <button
                   onClick={() => setShowDeleteModal(false)}
-                  className="px-3.5 py-2 rounded-lg border border-white/5 text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-all cursor-pointer"
+                  className="px-3.5 py-2 rounded-lg border border-white/5 text-[10px] font-bold uppercase tracking-wider text-zinc-400 hover:text-white transition-all cursor-pointer"
                 >
                   Cancel
                 </button>

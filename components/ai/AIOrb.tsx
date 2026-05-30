@@ -65,7 +65,7 @@ export function AIOrb({ size = 'md', className, isGenerating = false, forceActiv
 
       {/* Core sphere */}
       <motion.div
-        className="absolute inset-0.5 rounded-full bg-gradient-to-tr from-violet-600 via-purple-500 to-indigo-400 shadow-2xl border border-white/20 flex items-center justify-center overflow-hidden"
+        className="absolute inset-0.5 rounded-full bg-gradient-to-tr from-violet-600 via-zinc-500 to-zinc-400 shadow-2xl border border-white/20 flex items-center justify-center overflow-hidden"
         animate={{
           boxShadow: isGenerating
             ? ['0 0 20px rgba(139,92,246,0.6)', '0 0 40px rgba(6,182,212,0.7)', '0 0 20px rgba(139,92,246,0.6)']

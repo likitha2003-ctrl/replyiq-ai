@@ -34,12 +34,12 @@ export function ConversationThread() {
 
   if (!activeConversation) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center bg-slate-900/10 p-8 text-center">
-        <div className="h-20 w-20 rounded-full border border-purple-500/20 bg-purple-500/5 flex items-center justify-center text-purple-400 mb-5 shadow-[0_0_30px_rgba(139,92,246,0.15)]">
+      <div className="flex-1 flex flex-col items-center justify-center bg-zinc-900/10 p-8 text-center">
+        <div className="h-20 w-20 rounded-full border border-zinc-500/20 bg-zinc-500/5 flex items-center justify-center text-zinc-400 mb-5 shadow-[0_0_30px_rgba(139,92,246,0.15)]">
           <Inbox size={32} />
         </div>
         <h3 className="text-base font-semibold text-white">Your inbox is quiet</h3>
-        <p className="text-sm text-slate-500 max-w-sm mt-2 leading-relaxed">
+        <p className="text-sm text-zinc-500 max-w-sm mt-2 leading-relaxed">
           New messages will appear here as customers reach out across channels.
         </p>
       </div>
@@ -51,13 +51,13 @@ export function ConversationThread() {
   };
 
   return (
-    <div className="flex-1 flex flex-col h-full bg-slate-950/20 relative overflow-hidden">
+    <div className="flex-1 flex flex-col h-full bg-zinc-950/20 relative overflow-hidden">
       
       {/* Thread Header */}
-      <div className="h-16 border-b border-white/5 px-4 md:px-6 flex items-center justify-between shrink-0 bg-slate-950/40">
+      <div className="h-16 border-b border-white/5 px-4 md:px-6 flex items-center justify-between shrink-0 bg-zinc-950/40">
         <div className="flex items-center gap-2 md:gap-3">
           <button 
-            className="md:hidden p-1.5 -ml-2 text-slate-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors"
+            className="md:hidden p-1.5 -ml-2 text-zinc-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors"
             onClick={() => setActiveConversationId(null)}
           >
             <ChevronLeft size={20} />
@@ -67,16 +67,16 @@ export function ConversationThread() {
               <h2 className="text-sm font-bold text-white leading-none">{activeConversation.contactName}</h2>
               <ChannelBadge channel={activeConversation.channel} />
             </div>
-            <span className="text-[10px] text-slate-500 mt-1 block">{activeConversation.contactEmail}</span>
+            <span className="text-[10px] text-zinc-500 mt-1 block">{activeConversation.contactEmail}</span>
           </div>
         </div>
 
         {/* Urgency Score & Status Select */}
         <div className="flex items-center gap-4">
           {/* Urgency Gauge */}
-          <div className="flex items-center gap-2 border border-white/5 bg-slate-950/40 px-3 py-1.5 rounded-lg text-xs">
-            <ShieldAlert size={14} className={activeConversation.urgencyScore > 75 ? 'text-rose-400 animate-pulse' : 'text-slate-400'} />
-            <span className="text-[10px] text-slate-400 font-medium">Urgency:</span>
+          <div className="flex items-center gap-2 border border-white/5 bg-zinc-950/40 px-3 py-1.5 rounded-lg text-xs">
+            <ShieldAlert size={14} className={activeConversation.urgencyScore > 75 ? 'text-rose-400 animate-pulse' : 'text-zinc-400'} />
+            <span className="text-[10px] text-zinc-400 font-medium">Urgency:</span>
             <span className={`font-bold ${
               activeConversation.urgencyScore > 75 
                 ? 'text-rose-400' 
@@ -93,13 +93,13 @@ export function ConversationThread() {
             <select
               value={activeConversation.status}
               onChange={handleStatusChange}
-              className="bg-slate-900 border border-white/10 rounded-lg text-xs text-slate-300 px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-purple-500 cursor-pointer pr-8 appearance-none"
+              className="bg-zinc-900 border border-white/10 rounded-lg text-xs text-zinc-300 px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-zinc-500 cursor-pointer pr-8 appearance-none"
             >
               <option value="open">🟢 Open</option>
               <option value="snoozed">🟡 Snoozed</option>
               <option value="resolved">🔵 Resolved</option>
             </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-slate-500">
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-zinc-500">
               <svg className="fill-current h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                 <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
               </svg>
@@ -134,7 +134,7 @@ export function ConversationThread() {
             </div>
           </div>
         ) : activeConversation.messages.length === 0 ? (
-          <p className="text-center text-xs text-slate-500">No messages in this conversation.</p>
+          <p className="text-center text-xs text-zinc-500">No messages in this conversation.</p>
         ) : (
           activeConversation.messages.map((msg) => (
             <MessageBubble key={msg.id} message={msg} conversation={activeConversation} />

@@ -23,13 +23,13 @@ export default function LeadsLoading() {
       {/* Kanban columns */}
       <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4 min-h-0">
         {Array.from({ length: 3 }).map((_, col) => (
-          <div key={col} className="rounded-2xl border border-white/[0.04] bg-slate-950/20 p-4 space-y-3">
+          <div key={col} className="rounded-2xl border border-white/[0.04] bg-zinc-950/20 p-4 space-y-3">
             <div className="flex items-center justify-between pb-2 border-b border-white/[0.04]">
               <SkeletonLoader className="h-4 w-20" />
               <SkeletonLoader className="h-5 w-6 rounded-full" />
             </div>
             {Array.from({ length: col === 0 ? 3 : col === 1 ? 2 : 2 }).map((_, i) => (
-              <div key={i} className="rounded-xl border border-white/[0.04] bg-slate-900/30 p-4 space-y-3">
+              <div key={i} className="rounded-xl border border-white/[0.04] bg-zinc-900/30 p-4 space-y-3">
                 <div className="flex items-start justify-between">
                   <SkeletonLoader className="h-3.5 w-24" />
                   <SkeletonLoader className="h-5 w-12 rounded-full" />

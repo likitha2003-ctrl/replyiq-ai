@@ -43,6 +43,18 @@ export interface Lead {
   channel: Channel;
   dateCreated: string;
   summary: string;
+  score?: number;
+  scoreBreakdown?: {
+    intent: number;
+    urgency: number;
+    budget: number;
+    engagement: number;
+    recency?: number;
+    sentiment?: number;
+  };
+  scoreUpdatedAt?: string;
+  recommendation?: string;
+  aiExplanation?: string[];
 }
 
 export interface NotificationLog {
@@ -60,4 +72,49 @@ export interface AISettings {
   tone: 'professional' | 'casual' | 'empathetic' | 'persuasive';
   agentName: string;
   customInstructions: string;
+}
+
+export interface PromiseTracker {
+  id: string;
+  conversationId: string;
+  promiseText: string;
+  promisedTo: string;
+  dueDate: string;
+  status: 'pending' | 'resolved';
+  detectedAt: string;
+}
+
+export interface Appointment {
+  id: string;
+  contactName: string;
+  contactChannel?: string;
+  scheduledAt: string;
+  durationMinutes: number;
+  meetingType: string;
+  status: 'confirmed' | 'pending' | 'completed' | 'cancelled';
+  aiDetected: boolean;
+  notes?: string;
+  createdAt: string;
+}
+
+export interface FollowUp {
+  id: string;
+  contactName: string;
+  channel: string;
+  triggerType: 'no_reply' | 'after_meeting' | 'post_demo' | 'manual' | 'lead_inactive';
+  scheduledAt: string;
+  status: 'pending' | 'sent' | 'dismissed';
+  aiMessage: string;
+  sentAt?: string;
+  createdAt: string;
+}
+
+export interface Workspace {
+  id: string;
+  name: string;
+  businessType: string;
+  plan: 'starter' | 'growth' | 'pro' | 'enterprise';
+  avatarColor: string;
+  isActive: boolean;
+  createdAt: string;
 }

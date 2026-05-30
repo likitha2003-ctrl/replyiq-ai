@@ -3,8 +3,8 @@ import { InboxSkeleton, SkeletonLoader } from '../../../components/shared/Skelet
 
 export default function InboxLoading() {
   return (
-    <div className="flex h-full w-full overflow-hidden bg-slate-950/20 md:rounded-xl border border-white/5 md:shadow-2xl flex-col md:flex-row">
-      <div className="w-full md:w-[300px] shrink-0 border-r border-white/5 bg-slate-900/40 p-4">
+    <div className="flex h-full w-full overflow-hidden bg-zinc-950/20 md:rounded-xl border border-white/5 md:shadow-2xl flex-col md:flex-row">
+      <div className="w-full md:w-[300px] shrink-0 border-r border-white/5 bg-zinc-900/40 p-4">
         <InboxSkeleton />
       </div>
       <div className="flex-1 p-6 space-y-6">

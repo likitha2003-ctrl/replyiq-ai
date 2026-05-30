@@ -191,7 +191,7 @@ export default function KnowledgeBasePage() {
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border border-white/[0.04] bg-slate-900/40 backdrop-blur-xl shadow-lg shrink-0 gap-4"
+        className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border border-white/[0.04] bg-zinc-900/40 backdrop-blur-xl shadow-lg shrink-0 gap-4"
       >
         <div className="flex items-center gap-3">
           <div className="p-2.5 rounded-lg border border-violet-500/20 bg-violet-500/10 text-violet-400">
@@ -199,7 +199,7 @@ export default function KnowledgeBasePage() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">AI Status</span>
+              <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider">AI Status</span>
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#10b981]" />
               <span className="text-[9px] text-emerald-400 font-bold uppercase tracking-wider">Active</span>
             </div>
@@ -207,14 +207,14 @@ export default function KnowledgeBasePage() {
           </div>
         </div>
 
-        <div className="flex items-center gap-6 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+        <div className="flex items-center gap-6 text-[10px] font-bold text-zinc-400 uppercase tracking-wider">
           <div className="flex flex-col">
-            <span className="text-slate-500 font-bold">Knowledge base size</span>
+            <span className="text-zinc-500 font-bold">Knowledge base size</span>
             <span className="text-white mt-0.5 text-xs font-extrabold">{wordCount.toLocaleString()} words</span>
           </div>
           <div className="h-6 w-px bg-white/5" />
           <div className="flex flex-col">
-            <span className="text-slate-500 font-bold">Last Trained</span>
+            <span className="text-zinc-500 font-bold">Last Trained</span>
             <span className="text-white mt-0.5 text-xs font-extrabold">{lastSaved}</span>
           </div>
         </div>
@@ -244,7 +244,7 @@ export default function KnowledgeBasePage() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="text-[9px] text-slate-500 font-bold flex items-center gap-1.5"
+                    className="text-[9px] text-zinc-500 font-bold flex items-center gap-1.5"
                   >
                     <RefreshCw size={10} className="animate-spin" /> Saving...
                   </motion.span>
@@ -267,7 +267,7 @@ export default function KnowledgeBasePage() {
                 className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider transition-all border cursor-pointer disabled:opacity-50 ${
                   saveStatus === 'saved' 
                     ? 'bg-emerald-500 text-white border-emerald-400 shadow-lg shadow-emerald-500/20' 
-                    : 'bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white shadow-lg shadow-violet-500/20 border-violet-500/10'
+                    : 'bg-gradient-to-r from-violet-600 to-zinc-600 hover:from-violet-500 hover:to-zinc-500 text-white shadow-lg shadow-violet-500/20 border-violet-500/10'
                 }`}
               >
                 {saveStatus === 'saving' ? (
@@ -283,12 +283,12 @@ export default function KnowledgeBasePage() {
 
           {/* Section tag injectors */}
           <div className="flex items-center gap-1.5 py-3 shrink-0 overflow-x-auto scrollbar-none border-b border-white/[0.03]">
-            <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mr-1.5">Add Section:</span>
+            <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mr-1.5">Add Section:</span>
             {templates.map((t) => (
               <button
                 key={t.title}
                 onClick={() => insertTemplate(t.title, t.text)}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-white/[0.04] bg-white/[0.01] hover:bg-violet-500/10 hover:border-violet-500/20 text-[10px] font-semibold text-slate-400 hover:text-violet-300 transition-all cursor-pointer"
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-white/[0.04] bg-white/[0.01] hover:bg-violet-500/10 hover:border-violet-500/20 text-[10px] font-semibold text-zinc-400 hover:text-violet-300 transition-all cursor-pointer"
               >
                 <t.icon size={10} />
                 <span>[{t.title}]</span>
@@ -303,12 +303,12 @@ export default function KnowledgeBasePage() {
               value={content}
               onChange={(e) => setContent(e.target.value)}
               placeholder="Enter your customer support facts, FAQs, and policies here..."
-              className="w-full h-full bg-slate-950/40 rounded-xl border border-white/5 p-4 text-[11px] font-mono leading-relaxed text-slate-300 placeholder-slate-600 focus:outline-none focus:border-violet-500/30 transition-colors resize-none scrollbar-thin scrollbar-thumb-white/5 scrollbar-track-transparent"
+              className="w-full h-full bg-zinc-950/40 rounded-xl border border-white/5 p-4 text-[11px] font-mono leading-relaxed text-zinc-300 placeholder-zinc-600 focus:outline-none focus:border-violet-500/30 transition-colors resize-none scrollbar-thin scrollbar-thumb-white/5 scrollbar-track-transparent"
             />
           </div>
 
           {/* Word / Char Counters */}
-          <div className="flex items-center justify-between pt-3 text-[10px] font-semibold text-slate-500 border-t border-white/[0.04] shrink-0 mt-3">
+          <div className="flex items-center justify-between pt-3 text-[10px] font-semibold text-zinc-500 border-t border-white/[0.04] shrink-0 mt-3">
             <span className="flex items-center gap-1"><FileText size={12} /> Monospace Editor</span>
             <div className="flex items-center gap-4">
               <span>{charCount.toLocaleString()} characters</span>
@@ -322,7 +322,7 @@ export default function KnowledgeBasePage() {
         <motion.div
           initial={{ opacity: 0, x: 15 }}
           animate={{ opacity: 1, x: 0 }}
-          className="lg:col-span-2 flex flex-col rounded-2xl border border-white/[0.04] bg-slate-950/20 backdrop-blur-xl p-5 overflow-hidden"
+          className="lg:col-span-2 flex flex-col rounded-2xl border border-white/[0.04] bg-zinc-950/20 backdrop-blur-xl p-5 overflow-hidden"
         >
           {/* Header */}
           <div className="pb-4 border-b border-white/[0.04] shrink-0 flex items-center justify-between">
@@ -330,11 +330,11 @@ export default function KnowledgeBasePage() {
               <Sparkles className="text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.3)] animate-pulse" size={16} />
               <h2 className="text-xs font-bold text-white uppercase tracking-wider">Test Your AI</h2>
             </div>
-            <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Calibration Sandbox</span>
+            <span className="text-[9px] text-zinc-500 font-bold uppercase tracking-wider">Calibration Sandbox</span>
           </div>
 
           {/* Chat Preview Screen */}
-          <div className="flex-1 my-4 border border-white/[0.05] rounded-xl p-4 bg-slate-950/30 flex flex-col justify-between overflow-hidden relative">
+          <div className="flex-1 my-4 border border-white/[0.05] rounded-xl p-4 bg-zinc-950/30 flex flex-col justify-between overflow-hidden relative">
             
             {/* Thread Area */}
             <div className="flex-1 overflow-y-auto space-y-4 pr-1 scrollbar-thin scrollbar-thumb-white/5 scrollbar-track-transparent">
@@ -347,14 +347,14 @@ export default function KnowledgeBasePage() {
                           <p className="text-[11px] leading-relaxed text-white font-medium">{msg.content}</p>
                         </div>
                       ) : (
-                        <div className="max-w-[85%] rounded-2xl rounded-tl-sm border border-white/[0.04] bg-slate-900/60 px-3.5 py-2 shadow-lg relative overflow-hidden">
+                        <div className="max-w-[85%] rounded-2xl rounded-tl-sm border border-white/[0.04] bg-zinc-900/60 px-3.5 py-2 shadow-lg relative overflow-hidden">
                           <div className="absolute top-0 left-0 w-1 h-full bg-cyan-500/40" />
                           <div className="flex items-center gap-1.5 mb-1.5">
                             <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
-                            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">AI Co-pilot</span>
+                            <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-widest">AI Co-pilot</span>
                             <Sparkles size={8} className="text-cyan-400" />
                           </div>
-                          <p className="text-[11px] leading-relaxed text-slate-200 font-light">
+                          <p className="text-[11px] leading-relaxed text-zinc-200 font-light">
                             {msg.content}
                           </p>
                         </div>
@@ -364,19 +364,19 @@ export default function KnowledgeBasePage() {
                   
                   {isLoading && (
                     <div className="flex justify-start">
-                      <div className="max-w-[85%] rounded-2xl rounded-tl-sm border border-white/[0.04] bg-slate-900/60 px-3.5 py-3 shadow-lg flex gap-1">
-                        <span className="h-1.5 w-1.5 bg-slate-500 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                        <span className="h-1.5 w-1.5 bg-slate-500 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                        <span className="h-1.5 w-1.5 bg-slate-500 rounded-full animate-bounce"></span>
+                      <div className="max-w-[85%] rounded-2xl rounded-tl-sm border border-white/[0.04] bg-zinc-900/60 px-3.5 py-3 shadow-lg flex gap-1">
+                        <span className="h-1.5 w-1.5 bg-zinc-500 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                        <span className="h-1.5 w-1.5 bg-zinc-500 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                        <span className="h-1.5 w-1.5 bg-zinc-500 rounded-full animate-bounce"></span>
                       </div>
                     </div>
                   )}
                 </div>
               ) : (
-                <div className="h-full flex flex-col items-center justify-center text-center text-slate-500 p-6">
-                  <Brain size={24} className="text-slate-700 mb-2" />
-                  <p className="text-xs font-semibold text-slate-400">Sandbox Empty</p>
-                  <p className="text-[9px] leading-normal text-slate-500 max-w-[200px] mt-1 font-light">
+                <div className="h-full flex flex-col items-center justify-center text-center text-zinc-500 p-6">
+                  <Brain size={24} className="text-zinc-700 mb-2" />
+                  <p className="text-xs font-semibold text-zinc-400">Sandbox Empty</p>
+                  <p className="text-[9px] leading-normal text-zinc-500 max-w-[200px] mt-1 font-light">
                     Ask a test question to verify how the newly added guidelines respond.
                   </p>
                 </div>
@@ -385,7 +385,7 @@ export default function KnowledgeBasePage() {
 
             {/* Suggested prompts list */}
             <div className="pt-3 border-t border-white/[0.03] shrink-0">
-              <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest block mb-2">Test Scenarios:</span>
+              <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest block mb-2">Test Scenarios:</span>
               <div className="flex flex-col gap-1.5">
                 {suggestedQuestions.map((q) => (
                   <button
@@ -394,7 +394,7 @@ export default function KnowledgeBasePage() {
                       setQuestion(q);
                       handleAsk(q);
                     }}
-                    className="w-full text-left px-3 py-1.5 rounded-lg border border-white/[0.04] bg-white/[0.01] hover:bg-cyan-500/10 hover:border-cyan-500/20 text-[10px] text-slate-400 hover:text-cyan-300 font-semibold transition-all cursor-pointer truncate"
+                    className="w-full text-left px-3 py-1.5 rounded-lg border border-white/[0.04] bg-white/[0.01] hover:bg-cyan-500/10 hover:border-cyan-500/20 text-[10px] text-zinc-400 hover:text-cyan-300 font-semibold transition-all cursor-pointer truncate"
                   >
                     "{q}"
                   </button>
@@ -414,12 +414,12 @@ export default function KnowledgeBasePage() {
                 if (e.key === 'Enter') handleAsk();
               }}
               placeholder="Ask a support inquiry to test..."
-              className="flex-1 px-3 py-2.5 rounded-lg border border-white/10 bg-slate-950/40 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-violet-500/30 transition-colors"
+              className="flex-1 px-3 py-2.5 rounded-lg border border-white/10 bg-zinc-950/40 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-violet-500/30 transition-colors"
             />
             <button
               onClick={() => handleAsk()}
               disabled={isLoading || !question.trim()}
-              className="px-3 py-2.5 rounded-lg border border-white/5 bg-white/[0.02] hover:bg-violet-500/10 hover:text-violet-300 hover:border-violet-500/20 text-xs font-bold text-slate-400 transition-all flex items-center justify-center shrink-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-3 py-2.5 rounded-lg border border-white/5 bg-white/[0.02] hover:bg-violet-500/10 hover:text-violet-300 hover:border-violet-500/20 text-xs font-bold text-zinc-400 transition-all flex items-center justify-center shrink-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Send size={12} />
             </button>

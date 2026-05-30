@@ -35,10 +35,10 @@ export function ChannelBreakdown({ data }: ChannelBreakdownProps) {
   };
 
   return (
-    <div className="w-full h-80 rounded-2xl border border-white/[0.04] bg-slate-950/20 backdrop-blur-xl p-5 relative overflow-hidden flex flex-col">
+    <div className="w-full h-80 rounded-2xl border border-white/[0.04] bg-zinc-950/20 backdrop-blur-xl p-5 relative overflow-hidden flex flex-col">
       <div>
         <h3 className="text-xs font-bold text-white tracking-wide">Channel Breakdown</h3>
-        <span className="text-[10px] text-slate-500 block mt-0.5">Distribution of support requests across channels.</span>
+        <span className="text-[10px] text-zinc-500 block mt-0.5">Distribution of support requests across channels.</span>
       </div>
 
       <div className="flex-1 flex items-center justify-between min-h-0 mt-4">
@@ -71,7 +71,7 @@ export function ChannelBreakdown({ data }: ChannelBreakdownProps) {
 
           {/* Center Text overlay */}
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-            <span className="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Total</span>
+            <span className="text-[9px] text-zinc-500 font-bold uppercase tracking-widest">Total</span>
             <span className="text-lg font-extrabold text-white mt-0.5 leading-none">
               <AnimatedCounter value={totalValue} />
             </span>
@@ -95,11 +95,11 @@ export function ChannelBreakdown({ data }: ChannelBreakdownProps) {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full" style={{ backgroundColor: item.color }} />
-                    <span className="text-[10px] font-bold text-slate-400 capitalize">{item.name}</span>
+                    <span className="text-[10px] font-bold text-zinc-400 capitalize">{item.name}</span>
                   </div>
                   <span className="text-[10px] font-bold text-white">{percentage}%</span>
                 </div>
-                <span className="text-[9px] text-slate-500 font-semibold mt-0.5 pl-4">
+                <span className="text-[9px] text-zinc-500 font-semibold mt-0.5 pl-4">
                   {item.value.toLocaleString()} messages
                 </span>
               </div>

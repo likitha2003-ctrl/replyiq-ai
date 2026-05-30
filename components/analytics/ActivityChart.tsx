@@ -13,20 +13,20 @@ interface ActivityChartProps {
 
 export function ActivityChart({ data }: ActivityChartProps) {
   return (
-    <div className="w-full h-80 rounded-2xl border border-white/[0.04] bg-slate-950/20 backdrop-blur-xl p-5 relative overflow-hidden flex flex-col">
+    <div className="w-full h-80 rounded-2xl border border-white/[0.04] bg-zinc-950/20 backdrop-blur-xl p-5 relative overflow-hidden flex flex-col">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h3 className="text-xs font-bold text-white tracking-wide">Daily Support Activity</h3>
-          <span className="text-[10px] text-slate-500 block mt-0.5">Total inbound traffic vs conversations handled fully by AI autopilot.</span>
+          <span className="text-[10px] text-zinc-500 block mt-0.5">Total inbound traffic vs conversations handled fully by AI autopilot.</span>
         </div>
         <div className="flex items-center gap-4 text-[10px] font-semibold">
           <div className="flex items-center gap-1.5">
             <span className="h-2 w-2 rounded-full bg-violet-500" />
-            <span className="text-slate-400">Total Queries</span>
+            <span className="text-zinc-400">Total Queries</span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            <span className="text-slate-400">AI Autopilot</span>
+            <span className="text-zinc-400">AI Autopilot</span>
           </div>
         </div>
       </div>
@@ -64,15 +64,15 @@ export function ActivityChart({ data }: ActivityChartProps) {
               content={({ active, payload }) => {
                 if (active && payload && payload.length) {
                   return (
-                    <div className="p-3 border border-white/[0.08] bg-slate-950/80 backdrop-blur-xl rounded-xl shadow-2xl">
-                      <span className="text-[10px] font-bold text-slate-500 block mb-1.5">{payload[0].payload.day}</span>
+                    <div className="p-3 border border-white/[0.08] bg-zinc-950/80 backdrop-blur-xl rounded-xl shadow-2xl">
+                      <span className="text-[10px] font-bold text-zinc-500 block mb-1.5">{payload[0].payload.day}</span>
                       <div className="space-y-1">
                         <div className="flex items-center gap-4 justify-between text-[11px] font-semibold">
-                          <span className="text-slate-400">Total queries</span>
+                          <span className="text-zinc-400">Total queries</span>
                           <span className="text-white font-bold">{payload[0].value}</span>
                         </div>
                         <div className="flex items-center gap-4 justify-between text-[11px] font-semibold">
-                          <span className="text-slate-400">AI Handled</span>
+                          <span className="text-zinc-400">AI Handled</span>
                           <span className="text-emerald-400 font-bold">{payload[1].value}</span>
                         </div>
                       </div>

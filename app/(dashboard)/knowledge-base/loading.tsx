@@ -5,7 +5,7 @@ export default function KnowledgeBaseLoading() {
   return (
     <div className="flex flex-col h-full w-full overflow-hidden p-8 gap-6">
       {/* Status strip skeleton */}
-      <div className="flex items-center justify-between p-4 rounded-xl border border-white/[0.04] bg-slate-900/40 shrink-0">
+      <div className="flex items-center justify-between p-4 rounded-xl border border-white/[0.04] bg-zinc-900/40 shrink-0">
         <div className="flex items-center gap-3">
           <SkeletonLoader className="h-10 w-10 rounded-lg" />
           <div className="space-y-2">
@@ -29,7 +29,7 @@ export default function KnowledgeBaseLoading() {
       {/* Two-panel layout */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-5 gap-6 min-h-0">
         {/* Left: editor panel */}
-        <div className="lg:col-span-3 rounded-2xl border border-white/[0.04] bg-slate-950/20 p-5 space-y-4">
+        <div className="lg:col-span-3 rounded-2xl border border-white/[0.04] bg-zinc-950/20 p-5 space-y-4">
           <div className="flex items-center justify-between pb-4 border-b border-white/[0.04]">
             <SkeletonLoader className="h-4 w-28" />
             <SkeletonLoader className="h-7 w-20 rounded-lg" />
@@ -51,12 +51,12 @@ export default function KnowledgeBaseLoading() {
         </div>
 
         {/* Right: sandbox panel */}
-        <div className="lg:col-span-2 rounded-2xl border border-white/[0.04] bg-slate-950/20 p-5 space-y-4">
+        <div className="lg:col-span-2 rounded-2xl border border-white/[0.04] bg-zinc-950/20 p-5 space-y-4">
           <div className="flex items-center justify-between pb-4 border-b border-white/[0.04]">
             <SkeletonLoader className="h-4 w-24" />
             <SkeletonLoader className="h-3 w-32" />
           </div>
-          <div className="flex-1 border border-white/[0.05] rounded-xl p-4 bg-slate-950/30 space-y-4 min-h-[200px]">
+          <div className="flex-1 border border-white/[0.05] rounded-xl p-4 bg-zinc-950/30 space-y-4 min-h-[200px]">
             <div className="flex justify-center flex-col items-center gap-3 pt-8">
               <SkeletonLoader className="h-12 w-12 rounded-full" />
               <SkeletonLoader className="h-4 w-32" />

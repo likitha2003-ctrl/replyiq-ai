@@ -11,7 +11,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const pathname = usePathname();
 
   return (
-    <div className="relative min-h-screen w-full bg-[#06080f] text-slate-200 flex overflow-hidden">
+    <div className="relative min-h-screen w-full bg-[#06080f] text-zinc-200 flex overflow-hidden">
       <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
 
       <div

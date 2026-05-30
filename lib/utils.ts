@@ -25,10 +25,10 @@ export function formatTime(dateString: string): string {
   }
 }
 
-export function formatCurrency(value: number): string {
+export function formatCurrency(value: number, currencyCode: string = 'USD'): string {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD',
+    currency: currencyCode,
     maximumFractionDigits: 0,
   }).format(value);
 }

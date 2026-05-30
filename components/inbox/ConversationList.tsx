@@ -25,7 +25,7 @@ export function ConversationList() {
       case 'negative':
         return <Frown size={12} className="text-rose-400" />;
       default:
-        return <MessageSquare size={12} className="text-slate-400" />;
+        return <MessageSquare size={12} className="text-zinc-400" />;
     }
   };
 
@@ -38,37 +38,37 @@ export function ConversationList() {
       case 'negative':
         return 'border-rose-500/20 bg-rose-500/5 text-rose-300';
       default:
-        return 'border-white/5 bg-white/5 text-slate-300';
+        return 'border-white/5 bg-white/5 text-zinc-300';
     }
   };
 
   return (
-    <div className="w-80 border-r border-white/5 bg-slate-950/40 flex flex-col h-full shrink-0">
+    <div className="w-80 border-r border-white/5 bg-zinc-950/40 flex flex-col h-full shrink-0">
       
       {/* Search Header */}
       <div className="p-4 border-b border-white/5 space-y-3 shrink-0">
         <div className="relative">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
           <input
             type="text"
             value={filters.search}
             onChange={(e) => filters.setSearch(e.target.value)}
             placeholder="Search inbox..."
-            className="w-full pl-9 pr-4 py-1.5 rounded-lg border border-white/5 bg-white/5 text-xs text-white placeholder-slate-500 outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 transition-all"
+            className="w-full pl-9 pr-4 py-1.5 rounded-lg border border-white/5 bg-white/5 text-xs text-white placeholder-zinc-500 outline-none focus:ring-1 focus:ring-zinc-500 focus:border-zinc-500 transition-all"
           />
         </div>
 
         {/* Quick Channels filter bar */}
-        <div className="flex items-center justify-between text-[10px] text-slate-500">
+        <div className="flex items-center justify-between text-[10px] text-zinc-500">
           <div className="flex gap-1.5 overflow-x-auto pb-1 max-w-full">
-            {(['all', 'email', 'whatsapp', 'sms'] as const).map((ch) => (
+            {(['all', 'email', 'whatsapp', 'sms', 'instagram'] as const).map((ch) => (
               <button
                 key={ch}
                 onClick={() => filters.setChannel(ch)}
                 className={`px-2 py-0.5 rounded transition-all cursor-pointer ${
                   filters.channel === ch
-                    ? 'bg-purple-600/20 text-purple-300 border border-purple-500/30'
-                    : 'bg-transparent text-slate-400 border border-transparent hover:text-white'
+                    ? 'bg-zinc-600/20 text-zinc-300 border border-zinc-500/30'
+                    : 'bg-transparent text-zinc-400 border border-transparent hover:text-white'
                 }`}
               >
                 {ch.toUpperCase()}
@@ -79,15 +79,15 @@ export function ConversationList() {
       </div>
 
       {/* Filter Tabs (Open / Resolved / Snoozed) */}
-      <div className="flex border-b border-white/5 text-xs px-2 shrink-0 bg-slate-950/20">
+      <div className="flex border-b border-white/5 text-xs px-2 shrink-0 bg-zinc-950/20">
         {(['all', 'open', 'resolved', 'snoozed'] as const).map((st) => (
           <button
             key={st}
             onClick={() => filters.setStatus(st)}
             className={`flex-1 py-3 text-center border-b-2 font-medium transition-all cursor-pointer ${
               filters.status === st
-                ? 'border-purple-500 text-white'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-zinc-500 text-white'
+                : 'border-transparent text-zinc-400 hover:text-zinc-200'
             }`}
           >
             {st.charAt(0).toUpperCase() + st.slice(1)}
@@ -96,7 +96,7 @@ export function ConversationList() {
       </div>
 
       {/* Sentiment Sub-Filter bar */}
-      <div className="flex items-center justify-between px-4 py-2 border-b border-white/5 bg-slate-950/10 text-[10px] text-slate-500 shrink-0">
+      <div className="flex items-center justify-between px-4 py-2 border-b border-white/5 bg-zinc-950/10 text-[10px] text-zinc-500 shrink-0">
         <span className="flex items-center gap-1"><Filter size={10} /> Sentiment:</span>
         <div className="flex gap-1">
           {(['all', 'urgent', 'positive', 'negative', 'neutral'] as const).map((sent) => (
@@ -106,7 +106,7 @@ export function ConversationList() {
               className={`px-1.5 py-0.5 rounded transition-all cursor-pointer capitalize ${
                 filters.sentiment === sent
                   ? 'bg-white/10 text-white font-medium'
-                  : 'hover:text-white text-slate-400'
+                  : 'hover:text-white text-zinc-400'
               }`}
             >
               {sent}
@@ -118,7 +118,7 @@ export function ConversationList() {
       {/* Conversations List */}
       <div className="flex-1 overflow-y-auto divide-y divide-white/5 p-2 space-y-1">
         {conversations.length === 0 ? (
-          <p className="text-center text-xs py-12 text-slate-500">No conversations match the filters.</p>
+          <p className="text-center text-xs py-12 text-zinc-500">No conversations match the filters.</p>
         ) : (
           conversations.map((conv) => {
             const isSelected = activeConversation?.id === conv.id;
@@ -150,8 +150,8 @@ export function ConversationList() {
                       className="h-10 w-10 rounded-full object-cover border border-white/10"
                     />
                   ) : (
-                    <div className="h-10 w-10 rounded-full bg-slate-800 flex items-center justify-center border border-white/10">
-                      <User size={16} className="text-slate-400" />
+                    <div className="h-10 w-10 rounded-full bg-zinc-800 flex items-center justify-center border border-white/10">
+                      <User size={16} className="text-zinc-400" />
                     </div>
                   )}
                   {/* Purple Unread/Pulse Dot */}
@@ -159,7 +159,7 @@ export function ConversationList() {
                     initial={{ scale: 1 }}
                     animate={{ scale: [1, 1.5, 1] }}
                     transition={{ duration: 0.4 }}
-                    className="absolute top-0 right-0 h-2.5 w-2.5 bg-purple-500 rounded-full border-2 border-slate-950" 
+                    className="absolute top-0 right-0 h-2.5 w-2.5 bg-zinc-500 rounded-full border-2 border-zinc-950" 
                   />
                 </div>
 
@@ -167,10 +167,10 @@ export function ConversationList() {
                 <div className="flex-1 min-w-0 flex flex-col justify-between">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-semibold text-white truncate">{conv.contactName}</span>
-                    <span className="text-[10px] text-slate-500">{formatTime(conv.lastMessageTime)}</span>
+                    <span className="text-[10px] text-zinc-500">{formatTime(conv.lastMessageTime)}</span>
                   </div>
                   
-                  <p className="text-[11px] text-slate-400 truncate mt-1 line-clamp-1 leading-normal">
+                  <p className="text-[11px] text-zinc-400 truncate mt-1 line-clamp-1 leading-normal">
                     {(() => {
                       const lastCustomerMsg = [...conv.messages].reverse().find(m => m.sender === 'user');
                       const previewText = lastCustomerMsg ? lastCustomerMsg.content : conv.lastMessage;

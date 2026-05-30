@@ -8,7 +8,7 @@ interface LeadBadgeProps {
 }
 
 export function LeadBadge({ confidence, className }: LeadBadgeProps) {
-  let style = 'bg-slate-500/10 text-slate-400 border-slate-500/20';
+  let style = 'bg-zinc-500/10 text-zinc-400 border-zinc-500/20';
   
   if (confidence >= 85) {
     style = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-sm shadow-emerald-500/5';

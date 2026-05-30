@@ -1,16 +1,16 @@
-import type { Metadata } from 'next';
-import { Inter, Outfit } from 'next/font/google';
+import { JetBrains_Mono, Outfit } from 'next/font/google';
 import { ToastProvider } from '../components/shared/ToastProvider';
 import './globals.css';
 
-const inter = Inter({
+const jetBrainsMono = JetBrains_Mono({
+  weight: ['400', '500'],
   subsets: ['latin'],
-  variable: '--font-sans',
+  variable: '--font-mono',
 });
 
 const outfit = Outfit({
   subsets: ['latin'],
-  variable: '--font-heading',
+  variable: '--font-sans',
 });
 
 export const metadata: Metadata = {
@@ -32,8 +32,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable} dark`}>
-      <body className="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased" suppressHydrationWarning>
+    <html lang="en" className={`${jetBrainsMono.variable} ${outfit.variable} dark`}>
+      <body className="bg-[var(--bg)] text-[var(--text)] min-h-screen flex flex-col antialiased font-sans" suppressHydrationWarning>
         <ToastProvider>
           {children}
         </ToastProvider>

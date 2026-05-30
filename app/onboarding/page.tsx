@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, ArrowRight, MessageCircle, Camera, Globe, Check, Bot } from 'lucide-react';
-import { useAIModeStore } from '../../store/aiModeStore';
-import { supabase } from '../../lib/supabase/client';
+import { Sparkles, ArrowRight, Check, CheckCircle2, ChevronRight, CheckSquare, Square, Zap } from 'lucide-react';
+import { useWorkspaceStore } from '../../store/workspaceStore';
+import { useInboxStore } from '../../store/inboxStore';
 
 const stepVariants = {
   enter: (direction: number) => ({
@@ -28,119 +28,123 @@ export default function OnboardingPage() {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [direction, setDirection] = useState(1);
-  const { settings, updateSettings } = useAIModeStore();
+  const { addWorkspace, setActiveWorkspace } = useWorkspaceStore();
 
-  // Step 2 Form
-  const [businessName, setBusinessName] = useState('Spice Garden');
-  const [businessType, setBusinessType] = useState('Restaurant');
-  const [language, setLanguage] = useState('English');
+  // Form State
+  const [formData, setFormData] = useState({
+    // Step 1
+    fullName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    // Step 2
+    companyName: '',
+    industry: 'Technology',
+    teamSize: '1-10',
+    country: 'United States',
+    // Step 3
+    workspaceName: '',
+    website: '',
+    primaryChannel: 'Email',
+    // Step 4
+    features: ['AI Lead Scoring', 'AI Sales Agent'] // Default selected
+  });
 
-  // Step 3 Form
-  const [trainingData, setTrainingData] = useState(`[About Us]
-Spice Garden is a premium South Indian restaurant 
-in Hyderabad. We serve authentic Hyderabadi cuisine 
-with modern presentation.
+  const updateForm = (field: string, value: any) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
 
-[Hours]
-Monday – Sunday: 11:00 AM – 11:00 PM
-Last orders at 10:30 PM
-
-[Services]
-- Dine-in: Air-conditioned seating for 80 guests
-- Takeaway: Ready in 20 minutes
-- Delivery: Available via Swiggy and Zomato
-- Private Events: Hall bookable for up to 50 guests
-
-[Menu Highlights & Pricing]
-- Hyderabadi Dum Biryani: ₹280
-- Gongura Mutton: ₹380
-- Pesarattu (breakfast): ₹120
-- Gulab Jamun: ₹80
-- Family Biryani Bucket (serves 4): ₹950
-
-[FAQs]
-Q: Do you have vegan options?
-A: Yes! We have 12+ vegan dishes including 
-   Pesarattu, Dal Tadka, and Veg Biryani.
-
-Q: Do you take reservations?
-A: Yes, call +91-98765-43210 or WhatsApp us.
-
-Q: What payment methods?
-A: UPI, all major cards, and cash accepted.`);
-  const [isTyping, setIsTyping] = useState(false);
-  const [previewText, setPreviewText] = useState('');
-  const [isSaved, setIsSaved] = useState(false);
+  const toggleFeature = (feature: string) => {
+    setFormData(prev => {
+      const current = prev.features;
+      if (current.includes(feature)) {
+        return { ...prev, features: current.filter(f => f !== feature) };
+      }
+      return { ...prev, features: [...current, feature] };
+    });
+  };
 
   const nextStep = () => {
     setDirection(1);
-    setStep((prev) => prev + 1);
-    setIsSaved(false);
+    setStep(prev => prev + 1);
   };
 
-  const handleSaveTraining = () => {
-    setIsSaved(true);
-    setTimeout(() => {
-      nextStep();
-    }, 1000);
-  };
+  const completeOnboarding = () => {
+    console.log('--- Workspace Creation Started ---');
+    
+    // 1. Generate new workspace ID
+    const newId = `ws-${Date.now()}`;
+    
+    // 2. Create workspace object
+    const newWorkspace = {
+      id: newId,
+      name: formData.workspaceName || formData.companyName || 'My Workspace',
+      businessType: formData.industry,
+      plan: 'pro',
+      avatarColor: '#8b5cf6', // violet
+      isActive: true,
+      createdAt: new Date().toISOString()
+    };
+    
+    console.log('Created workspace object:', newWorkspace);
 
-  const completeOnboarding = async () => {
-    // Update store
-    updateSettings({
-      customInstructions: `Business Name: ${businessName}. Type: ${businessType}. Language: ${language}. Guidelines: ${trainingData}\n\n${settings.customInstructions}`,
-      autoPilot: true
-    });
+    // 3. Save to store
+    addWorkspace(newWorkspace as any);
+    console.log('Saved to workspace store');
+    
+    // 4. Set as active
+    setActiveWorkspace(newId);
+    console.log(`Set active workspace to: ${newId}`);
 
-    // Simulate saving to supabase
-    await supabase.from('user_settings').insert([{
-      business_name: businessName,
-      business_type: businessType,
-      language: language,
-      training_data: trainingData
-    }]);
+    // 5. Update Inbox Store context
+    const { setWorkspaceData } = useInboxStore.getState();
+    setWorkspaceData(newId);
+    console.log(`Updated Inbox store data for workspace: ${newId}`);
 
+    console.log('--- Workspace Creation Complete ---');
+    
+    // Navigate to dashboard
     router.push('/inbox');
   };
 
-  // Typewriter effect for step 3
-  useEffect(() => {
-    if (step === 3 && trainingData.length > 10) {
-      setIsTyping(true);
-      const fakeResponse = `Yes! We deliver to Banjara Hills via Swiggy and Zomato. Average delivery time is 35–45 minutes. You can also order directly through us for a 10% discount!`;
-      let i = 0;
-      setPreviewText('');
-      const interval = setInterval(() => {
-        setPreviewText(fakeResponse.substring(0, i));
-        i++;
-        if (i > fakeResponse.length) {
-          clearInterval(interval);
-          setIsTyping(false);
-        }
-      }, 30);
-      return () => clearInterval(interval);
-    }
-  }, [step]);
+  const availableFeatures = [
+    'AI Lead Scoring',
+    'AI Sentiment Analysis',
+    'AI Sales Agent',
+    'Workflow Automation',
+    'Churn Shield',
+    'WhatsApp Campaigns'
+  ];
 
   return (
-    <div className="relative min-h-screen w-full flex flex-col items-center justify-center bg-[#06080f] overflow-hidden text-slate-200">
+    <div className="relative min-h-screen w-full flex flex-col items-center justify-center bg-[#06080f] overflow-hidden text-zinc-200 selection:bg-violet-500/30">
       
       {/* Background glowing orb */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-gradient-to-tr from-violet-600/20 to-cyan-500/10 blur-[120px] pointer-events-none animate-glow-pulse" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-gradient-to-tr from-violet-600/10 to-cyan-500/10 blur-[120px] pointer-events-none" />
 
-      {/* Progress Dots */}
-      <div className="absolute top-12 flex items-center justify-center space-x-3 w-full z-20">
-        {[1, 2, 3, 4, 5].map((i) => (
-          <div
-            key={i}
-            className={`h-2 rounded-full transition-all duration-500 ${
-              i === step ? 'w-8 bg-violet-500 shadow-[0_0_10px_rgba(139,92,246,0.6)]' : i < step ? 'w-2 bg-violet-500/50' : 'w-2 bg-white/10'
-            }`}
-          />
-        ))}
+      {/* Progress Header */}
+      <div className="absolute top-0 inset-x-0 h-24 flex items-center justify-between px-8 md:px-12 z-20">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-600 to-cyan-500 shadow-lg shadow-violet-500/20 flex items-center justify-center">
+            <Zap size={16} className="text-white" />
+          </div>
+          <span className="font-bold text-xl text-white tracking-wide">ReplyIQ</span>
+        </div>
+        
+        <div className="hidden md:flex items-center gap-3">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <div key={i} className="flex items-center gap-3">
+              <div
+                className={`w-10 h-1.5 rounded-full transition-all duration-500 ${
+                  i === step ? 'bg-violet-500 shadow-[0_0_10px_rgba(139,92,246,0.6)]' : i < step ? 'bg-violet-500/50' : 'bg-white/5'
+                }`}
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="relative z-10 w-full max-w-[600px] p-6">
+      <div className="relative z-10 w-full max-w-[500px] p-6 mt-12">
         <AnimatePresence mode="wait" custom={direction}>
           
           {step === 1 && (
@@ -152,23 +156,61 @@ A: UPI, all major cards, and cash accepted.`);
               animate="center"
               exit="exit"
               transition={{ duration: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
-              className="flex flex-col items-center text-center"
+              className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-[24px] p-8 md:p-10 shadow-2xl"
             >
-              <div className="relative flex items-center justify-center w-24 h-24 mb-8">
-                <div className="absolute inset-0 rounded-full bg-violet-500/20 blur-xl animate-pulse" />
-                <div className="absolute inset-0 rounded-full border border-violet-500/30 animate-spin" style={{ animationDuration: '4s' }} />
-                <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-tr from-violet-600 to-indigo-500 shadow-xl shadow-violet-500/30">
-                  <Sparkles size={32} className="text-white" />
+              <div className="mb-8">
+                <span className="text-[10px] font-bold tracking-widest uppercase text-violet-400 mb-2 block">Step 1 of 4</span>
+                <h1 className="text-3xl font-bold tracking-tight text-white mb-2">Account Details</h1>
+                <p className="text-zinc-400 text-sm">Create your personal administrator account.</p>
+              </div>
+
+              <div className="space-y-5">
+                <div className="space-y-1.5">
+                  <label className="text-[11px] text-zinc-400 font-medium tracking-wide uppercase">Full Name</label>
+                  <input
+                    type="text"
+                    value={formData.fullName}
+                    onChange={(e) => updateForm('fullName', e.target.value)}
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/50 transition-all"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[11px] text-zinc-400 font-medium tracking-wide uppercase">Work Email</label>
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => updateForm('email', e.target.value)}
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/50 transition-all"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] text-zinc-400 font-medium tracking-wide uppercase">Password</label>
+                    <input
+                      type="password"
+                      value={formData.password}
+                      onChange={(e) => updateForm('password', e.target.value)}
+                      className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/50 transition-all"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] text-zinc-400 font-medium tracking-wide uppercase">Confirm</label>
+                    <input
+                      type="password"
+                      value={formData.confirmPassword}
+                      onChange={(e) => updateForm('confirmPassword', e.target.value)}
+                      className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/50 transition-all"
+                    />
+                  </div>
                 </div>
               </div>
-              <h1 className="text-3xl font-bold tracking-tight text-white font-heading mb-4">Welcome to ReplyIQ</h1>
-              <p className="text-slate-400 mb-10 max-w-sm">Let&apos;s set up your AI inbox in 3 quick steps.</p>
               
               <button
                 onClick={nextStep}
-                className="group relative inline-flex items-center gap-2 rounded-xl bg-white px-8 py-3.5 text-sm font-semibold text-slate-950 shadow-xl hover:bg-slate-100 hover:scale-[1.02] transition-all duration-200"
+                disabled={!formData.fullName || !formData.email || !formData.password}
+                className="w-full mt-8 flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-3.5 text-sm font-semibold text-black shadow-xl hover:bg-zinc-200 transition-all duration-200 disabled:opacity-50 disabled:hover:bg-white"
               >
-                Let&apos;s go <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                Continue <ArrowRight size={16} />
               </button>
             </motion.div>
           )}
@@ -182,60 +224,81 @@ A: UPI, all major cards, and cash accepted.`);
               animate="center"
               exit="exit"
               transition={{ duration: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
-              className="glass rounded-[20px] p-8"
+              className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-[24px] p-8 md:p-10 shadow-2xl"
             >
-              <div className="text-center mb-8">
-                <h2 className="text-2xl font-bold text-white font-heading">Tell us about your business</h2>
-                <p className="text-sm text-slate-400 mt-2">Help us customize your AI&apos;s personality.</p>
+              <div className="mb-8">
+                <span className="text-[10px] font-bold tracking-widest uppercase text-violet-400 mb-2 block">Step 2 of 4</span>
+                <h2 className="text-3xl font-bold tracking-tight text-white mb-2">Business Details</h2>
+                <p className="text-zinc-400 text-sm">Tell us about the company you are building for.</p>
               </div>
 
               <div className="space-y-5">
                 <div className="space-y-1.5">
-                  <label className="text-[11px] text-violet-400 font-medium tracking-wide uppercase">Business Name</label>
+                  <label className="text-[11px] text-zinc-400 font-medium tracking-wide uppercase">Company Name</label>
                   <input
                     type="text"
-                    value={businessName}
-                    onChange={(e) => setBusinessName(e.target.value)}
-                    placeholder="e.g. Spice Garden"
+                    value={formData.companyName}
+                    onChange={(e) => updateForm('companyName', e.target.value)}
                     className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/50 transition-all"
                   />
                 </div>
                 
-                <div className="space-y-1.5">
-                  <label className="text-[11px] text-violet-400 font-medium tracking-wide uppercase">Business Type</label>
-                  <select
-                    value={businessType}
-                    onChange={(e) => setBusinessType(e.target.value)}
-                    className="w-full bg-[#0a0e1a] border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/50 transition-all appearance-none cursor-pointer"
-                  >
-                    <option value="Restaurant">Restaurant</option>
-                    <option value="Salon">Salon</option>
-                    <option value="Retail">Retail</option>
-                    <option value="Agency">Agency</option>
-                    <option value="Other">Other</option>
-                  </select>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] text-zinc-400 font-medium tracking-wide uppercase">Industry</label>
+                    <select
+                      value={formData.industry}
+                      onChange={(e) => updateForm('industry', e.target.value)}
+                      className="w-full bg-[#0a0e1a] border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/50 transition-all appearance-none cursor-pointer"
+                    >
+                      <option>Technology</option>
+                      <option>E-commerce</option>
+                      <option>Agency / Services</option>
+                      <option>Healthcare</option>
+                      <option>Real Estate</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] text-zinc-400 font-medium tracking-wide uppercase">Team Size</label>
+                    <select
+                      value={formData.teamSize}
+                      onChange={(e) => updateForm('teamSize', e.target.value)}
+                      className="w-full bg-[#0a0e1a] border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/50 transition-all appearance-none cursor-pointer"
+                    >
+                      <option>1-10</option>
+                      <option>11-50</option>
+                      <option>51-200</option>
+                      <option>201-500</option>
+                      <option>500+</option>
+                    </select>
+                  </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[11px] text-violet-400 font-medium tracking-wide uppercase">Primary Language</label>
+                  <label className="text-[11px] text-zinc-400 font-medium tracking-wide uppercase">Country</label>
                   <select
-                    value={language}
-                    onChange={(e) => setLanguage(e.target.value)}
+                    value={formData.country}
+                    onChange={(e) => updateForm('country', e.target.value)}
                     className="w-full bg-[#0a0e1a] border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/50 transition-all appearance-none cursor-pointer"
                   >
-                    <option value="English">English</option>
-                    <option value="Spanish">Spanish</option>
-                    <option value="French">French</option>
+                    <option>United States</option>
+                    <option>United Kingdom</option>
+                    <option>Canada</option>
+                    <option>Australia</option>
+                    <option>India</option>
+                    <option>European Union</option>
+                    <option>Other</option>
                   </select>
                 </div>
               </div>
 
               <button
                 onClick={nextStep}
-                disabled={!businessName}
-                className="w-full mt-8 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 px-4 py-3.5 text-sm font-semibold text-white shadow-xl shadow-violet-500/20 hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:hover:scale-100"
+                disabled={!formData.companyName}
+                className="w-full mt-8 flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-3.5 text-sm font-semibold text-black shadow-xl hover:bg-zinc-200 transition-all duration-200 disabled:opacity-50 disabled:hover:bg-white"
               >
-                Continue
+                Continue <ArrowRight size={16} />
               </button>
             </motion.div>
           )}
@@ -249,78 +312,66 @@ A: UPI, all major cards, and cash accepted.`);
               animate="center"
               exit="exit"
               transition={{ duration: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
-              className="flex flex-col md:flex-row gap-6 w-[800px] max-w-[90vw] -ml-[100px] sm:-ml-0" // Quick hack to center wider modal
-              style={{ transform: 'translateX(0)' }} // Ensuring proper centering despite width
+              className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-[24px] p-8 md:p-10 shadow-2xl"
             >
-              <div className="flex-1 glass rounded-[20px] p-8">
-                <h2 className="text-2xl font-bold text-white font-heading mb-2">Train your AI</h2>
-                <p className="text-sm text-slate-400 mb-6">Your AI will use this to answer customer questions automatically.</p>
-                
-                <div className="space-y-2 relative">
-                  <textarea
-                    value={trainingData}
-                    onChange={(e) => setTrainingData(e.target.value)}
-                    placeholder="e.g. We are an authentic Indian restaurant open from 11am to 10pm. We offer vegan options..."
-                    className="w-full h-[200px] bg-white/[0.03] border border-white/10 rounded-xl p-4 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/50 transition-all resize-none"
+              <div className="mb-8">
+                <span className="text-[10px] font-bold tracking-widest uppercase text-violet-400 mb-2 block">Step 3 of 4</span>
+                <h2 className="text-3xl font-bold tracking-tight text-white mb-2">Workspace Setup</h2>
+                <p className="text-zinc-400 text-sm">Configure your primary intelligence hub.</p>
+              </div>
+
+              <div className="space-y-5">
+                <div className="space-y-1.5">
+                  <label className="text-[11px] text-zinc-400 font-medium tracking-wide uppercase">Workspace Name</label>
+                  <input
+                    type="text"
+                    value={formData.workspaceName}
+                    onChange={(e) => updateForm('workspaceName', e.target.value)}
+                    placeholder={formData.companyName ? `${formData.companyName} Workspace` : ''}
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/50 transition-all"
                   />
-                  <div className="absolute bottom-4 right-4 text-[10px] text-slate-500 flex gap-2">
-                    <span>{trainingData.length} chars</span>
-                    <span>•</span>
-                    <span>{trainingData.trim() === '' ? 0 : trainingData.trim().split(/\s+/).length} words</span>
-                  </div>
-                </div>
-
-                <button
-                  onClick={handleSaveTraining}
-                  disabled={trainingData.length < 10 || isSaved}
-                  className="w-full mt-6 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 px-4 py-3.5 text-sm font-semibold text-white shadow-xl shadow-violet-500/20 hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:hover:scale-100"
-                >
-                  <AnimatePresence mode="wait">
-                    {isSaved ? (
-                      <motion.span
-                        key="saved"
-                        initial={{ opacity: 0, y: 5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -5 }}
-                        className="flex items-center justify-center gap-2 text-emerald-300"
-                      >
-                        <Check size={16} /> Training data saved
-                      </motion.span>
-                    ) : (
-                      <motion.span
-                        key="save"
-                        initial={{ opacity: 0, y: 5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -5 }}
-                        className="flex items-center justify-center"
-                      >
-                        Save Training Data
-                      </motion.span>
-                    )}
-                  </AnimatePresence>
-                </button>
-              </div>
-
-              {/* Preview Pane */}
-              <div className="w-[300px] glass rounded-[20px] p-6 hidden md:flex flex-col">
-                <div className="flex items-center gap-2 mb-6 border-b border-white/10 pb-4">
-                  <Bot size={16} className="text-violet-400" />
-                  <span className="text-xs font-semibold text-white">Live Preview</span>
                 </div>
                 
-                <div className="flex-1 space-y-4">
-                  <div className="bg-white/5 rounded-xl rounded-tr-none p-3 text-xs text-slate-300 self-end ml-6 border border-white/5">
-                    Do you deliver to Banjara Hills?
+                <div className="space-y-1.5">
+                  <label className="text-[11px] text-zinc-400 font-medium tracking-wide uppercase">Business Website</label>
+                  <div className="relative">
+                    <span className="absolute left-4 top-3 text-zinc-500 text-sm">https://</span>
+                    <input
+                      type="text"
+                      value={formData.website}
+                      onChange={(e) => updateForm('website', e.target.value)}
+                      className="w-full bg-white/[0.03] border border-white/10 rounded-xl pl-16 pr-4 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-violet-500/50 transition-all"
+                    />
                   </div>
-                  
-                  {(previewText || isTyping) && (
-                    <div className="bg-violet-500/10 border border-violet-500/20 rounded-xl rounded-tl-none p-3 text-xs text-violet-200 mr-6 shadow-sm shadow-violet-500/5">
-                      {previewText}
-                      {isTyping && <span className="inline-block w-1.5 h-3 bg-violet-400 ml-1 animate-pulse" />}
-                    </div>
-                  )}
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-[11px] text-zinc-400 font-medium tracking-wide uppercase">Primary Communication Channel</label>
+                  <div className="grid grid-cols-3 gap-3">
+                    {['Email', 'WhatsApp', 'SMS'].map(channel => (
+                      <div 
+                        key={channel}
+                        onClick={() => updateForm('primaryChannel', channel)}
+                        className={`flex items-center justify-center p-3 rounded-xl border text-sm font-medium cursor-pointer transition-all ${
+                          formData.primaryChannel === channel 
+                            ? 'bg-violet-500/20 border-violet-500 text-white shadow-[0_0_15px_rgba(139,92,246,0.3)]' 
+                            : 'bg-white/[0.02] border-white/10 text-zinc-400 hover:border-white/30'
+                        }`}
+                      >
+                        {channel}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
+
+              <button
+                onClick={nextStep}
+                disabled={!formData.workspaceName}
+                className="w-full mt-8 flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-3.5 text-sm font-semibold text-black shadow-xl hover:bg-zinc-200 transition-all duration-200 disabled:opacity-50 disabled:hover:bg-white"
+              >
+                Continue <ArrowRight size={16} />
+              </button>
             </motion.div>
           )}
 
@@ -333,44 +384,41 @@ A: UPI, all major cards, and cash accepted.`);
               animate="center"
               exit="exit"
               transition={{ duration: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
-              className="glass rounded-[20px] p-8"
+              className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-[24px] p-8 md:p-10 shadow-2xl"
             >
-              <div className="text-center mb-8">
-                <h2 className="text-2xl font-bold text-white font-heading">Connect your channels</h2>
-                <p className="text-sm text-slate-400 mt-2">Channels are pre-configured for your demo environment.</p>
+              <div className="mb-8">
+                <span className="text-[10px] font-bold tracking-widest uppercase text-violet-400 mb-2 block">Step 4 of 4</span>
+                <h2 className="text-3xl font-bold tracking-tight text-white mb-2">ReplyIQ Configuration</h2>
+                <p className="text-zinc-400 text-sm">Select the AI revenue features to enable for your workspace.</p>
               </div>
 
-              <div className="space-y-4">
-                {[
-                  { id: 'whatsapp', name: 'WhatsApp Business', icon: MessageCircle, color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
-                  { id: 'instagram', name: 'Instagram Direct', icon: Camera, color: 'text-pink-400', bg: 'bg-pink-500/10' },
-                  { id: 'web', name: 'Website Chat', icon: Globe, color: 'text-blue-400', bg: 'bg-blue-500/10' }
-                ].map((channel) => (
-                  <div key={channel.id} className="flex items-center justify-between p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5">
-                    <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${channel.bg}`}>
-                        <channel.icon size={20} className={channel.color} />
-                      </div>
-                      <div>
-                        <div className="text-sm font-semibold text-white">{channel.name}</div>
-                        <div className="text-[10px] text-emerald-400 flex items-center gap-1 mt-0.5">
-                          <Check size={10} /> Connected
-                        </div>
-                      </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
+                {availableFeatures.map((feature) => (
+                  <div 
+                    key={feature}
+                    onClick={() => toggleFeature(feature)}
+                    className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
+                      formData.features.includes(feature)
+                        ? 'bg-violet-500/10 border-violet-500/50 shadow-[0_0_15px_rgba(139,92,246,0.15)]'
+                        : 'bg-white/[0.02] border-white/5 hover:border-white/20 hover:bg-white/[0.04]'
+                    }`}
+                  >
+                    <div className={`${formData.features.includes(feature) ? 'text-violet-400' : 'text-zinc-600'}`}>
+                      {formData.features.includes(feature) ? <CheckSquare size={18} /> : <Square size={18} />}
                     </div>
-                    {/* Visual toggle ON */}
-                    <div className="w-10 h-5 bg-emerald-500 rounded-full flex items-center px-0.5 justify-end">
-                      <div className="w-4 h-4 bg-white rounded-full shadow-sm" />
-                    </div>
+                    <span className={`text-sm font-medium ${formData.features.includes(feature) ? 'text-white' : 'text-zinc-400'}`}>
+                      {feature}
+                    </span>
                   </div>
                 ))}
               </div>
 
               <button
                 onClick={nextStep}
-                className="w-full mt-8 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 px-4 py-3.5 text-sm font-semibold text-white shadow-xl shadow-violet-500/20 hover:scale-[1.02] transition-all duration-300"
+                disabled={formData.features.length === 0}
+                className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 px-8 py-4 text-sm font-bold text-white shadow-xl shadow-violet-500/25 hover:shadow-violet-500/40 hover:scale-[1.02] transition-all duration-300"
               >
-                Complete Setup
+                Create Workspace
               </button>
             </motion.div>
           )}
@@ -383,28 +431,39 @@ A: UPI, all major cards, and cash accepted.`);
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.4, ease: [0.25, 0.4, 0.25, 1] }}
-              className="flex flex-col items-center text-center"
+              transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
+              className="flex flex-col items-center text-center max-w-md mx-auto"
             >
               <motion.div 
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", bounce: 0.5, delay: 0.2 }}
-                className="w-24 h-24 mb-6 rounded-full bg-gradient-to-tr from-emerald-500 to-cyan-500 flex items-center justify-center shadow-xl shadow-emerald-500/20"
+                className="w-24 h-24 mb-8 rounded-2xl bg-gradient-to-br from-violet-600 to-cyan-500 flex items-center justify-center shadow-2xl shadow-violet-500/30"
               >
-                <Check size={40} className="text-white" />
+                <CheckCircle2 size={40} className="text-white" />
               </motion.div>
               
-              <h2 className="text-3xl font-bold tracking-tight text-white font-heading mb-4">You&apos;re live! 🚀</h2>
-              <p className="text-slate-400 mb-2">AI is active.</p>
-              <p className="text-slate-400 mb-2">3 channels connected.</p>
-              <p className="text-slate-400 mb-10">Knowledge base trained.</p>
+              <h2 className="text-4xl font-bold tracking-tight text-white mb-4">Your ReplyIQ Workspace Is Ready</h2>
+              <p className="text-zinc-400 mb-8 text-lg">
+                <span className="text-white font-semibold">{formData.workspaceName || 'Your Workspace'}</span> has been successfully provisioned.
+              </p>
+              
+              <div className="w-full bg-white/[0.03] border border-white/10 rounded-2xl p-6 mb-10 text-left">
+                <div className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4">Enabled Intelligence</div>
+                <div className="flex flex-wrap gap-2">
+                  {formData.features.map(f => (
+                    <div key={f} className="px-3 py-1.5 rounded-full bg-violet-500/20 text-violet-300 text-xs font-medium border border-violet-500/20">
+                      {f}
+                    </div>
+                  ))}
+                </div>
+              </div>
               
               <button
                 onClick={completeOnboarding}
-                className="group relative inline-flex items-center gap-2 rounded-xl bg-white px-8 py-3.5 text-sm font-semibold text-slate-950 shadow-xl hover:bg-slate-100 hover:scale-[1.02] transition-all duration-200"
+                className="group relative w-full flex items-center justify-center gap-2 rounded-xl bg-white px-8 py-4 text-base font-bold text-black shadow-[0_0_30px_rgba(255,255,255,0.2)] hover:bg-zinc-200 hover:scale-[1.02] transition-all duration-300"
               >
-                Open your inbox <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                Launch Dashboard <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </button>
             </motion.div>
           )}

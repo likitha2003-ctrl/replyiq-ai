@@ -50,11 +50,11 @@ export function RecentLeads({ leads }: RecentLeadsProps) {
   const latestLeads = leads.slice(0, 5);
 
   return (
-    <div className="w-full rounded-2xl border border-white/[0.04] bg-slate-950/20 backdrop-blur-xl p-5 relative overflow-hidden flex flex-col justify-between">
+    <div className="w-full rounded-2xl border border-white/[0.04] bg-zinc-950/20 backdrop-blur-xl p-5 relative overflow-hidden flex flex-col justify-between">
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-xs font-bold text-white tracking-wide">Recent Lead Activity</h3>
-          <span className="text-[10px] text-slate-500 block mt-0.5">Top commercial opportunities recently identified by AI co-pilot.</span>
+          <span className="text-[10px] text-zinc-500 block mt-0.5">Top commercial opportunities recently identified by AI co-pilot.</span>
         </div>
         <button
           onClick={() => router.push('/leads')}
@@ -66,16 +66,16 @@ export function RecentLeads({ leads }: RecentLeadsProps) {
 
       <div className="space-y-2.5 flex-1 overflow-y-auto">
         {latestLeads.length === 0 ? (
-          <div className="py-10 text-center text-xs text-slate-600">No leads captured yet.</div>
+          <div className="py-10 text-center text-xs text-zinc-600">No leads captured yet.</div>
         ) : (
           latestLeads.map((lead) => (
             <div
               key={lead.id}
               onClick={() => router.push('/leads')}
-              className="flex items-center justify-between p-3 rounded-xl border border-white/[0.03] bg-slate-900/20 hover:bg-slate-900/60 hover:border-violet-500/20 transition-all duration-300 cursor-pointer group"
+              className="flex items-center justify-between p-3 rounded-xl border border-white/[0.03] bg-zinc-900/20 hover:bg-zinc-900/60 hover:border-violet-500/20 transition-all duration-300 cursor-pointer group"
             >
               <div className="flex items-center gap-3">
-                <div className="h-8 w-8 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center text-[10px] font-bold text-slate-300 shrink-0">
+                <div className="h-8 w-8 rounded-full bg-zinc-800 border border-white/10 flex items-center justify-center text-[10px] font-bold text-zinc-300 shrink-0">
                   {lead.contactName.split(' ').map((n) => n[0]).join('').slice(0, 2)}
                 </div>
                 <div>
@@ -83,17 +83,17 @@ export function RecentLeads({ leads }: RecentLeadsProps) {
                     <span className="text-xs font-bold text-white group-hover:text-violet-300 transition-colors">
                       {lead.contactName}
                     </span>
-                    <span className="text-[9px] text-slate-500 flex items-center gap-1 capitalize">
+                    <span className="text-[9px] text-zinc-500 flex items-center gap-1 capitalize">
                       {getChannelIcon(lead.channel)} {lead.channel}
                     </span>
                   </div>
-                  <div className="text-[9px] text-slate-500 flex items-center gap-1 mt-0.5">
+                  <div className="text-[9px] text-zinc-500 flex items-center gap-1 mt-0.5">
                     {lead.companyName && (
                       <span className="flex items-center gap-1">
                         <Building2 size={9} /> {lead.companyName}
                       </span>
                     )}
-                    <span className="text-slate-600">•</span>
+                    <span className="text-zinc-600">•</span>
                     <span>Added {formatTime(lead.dateCreated)}</span>
                   </div>
                 </div>
@@ -102,7 +102,7 @@ export function RecentLeads({ leads }: RecentLeadsProps) {
               <div className="flex items-center gap-3 shrink-0">
                 <div className="text-right">
                   <span className="text-xs font-extrabold text-white block">{formatCurrency(lead.dealValue)}</span>
-                  <span className="text-[9px] text-slate-500 font-bold block">{lead.confidence}% Conf.</span>
+                  <span className="text-[9px] text-zinc-500 font-bold block">{lead.confidence}% Conf.</span>
                 </div>
                 {getPriorityBadge(lead.priority)}
               </div>

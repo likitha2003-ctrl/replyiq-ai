@@ -51,8 +51,8 @@ export function SmartReplySuggestions({
 
   return (
     <div className="space-y-2">
-      <div className="flex items-center gap-1.5 text-[10px] text-slate-500 font-bold uppercase tracking-wider">
-        <Sparkles size={10} className="text-purple-400" />
+      <div className="flex items-center gap-1.5 text-[10px] text-zinc-500 font-bold uppercase tracking-wider">
+        <Sparkles size={10} className="text-zinc-400" />
         <span>One-Click Smart Refills</span>
       </div>
 
@@ -61,9 +61,9 @@ export function SmartReplySuggestions({
           <button
             key={idx}
             onClick={() => onSelectSuggestion(s)}
-            className="w-full text-left p-2.5 rounded-lg border border-white/5 bg-slate-900/40 hover:bg-slate-900 hover:border-purple-500/25 transition-all text-xs text-slate-300 hover:text-white leading-normal flex items-start gap-2 cursor-pointer font-light"
+            className="w-full text-left p-2.5 rounded-lg border border-white/5 bg-zinc-900/40 hover:bg-zinc-900 hover:border-zinc-500/25 transition-all text-xs text-zinc-300 hover:text-white leading-normal flex items-start gap-2 cursor-pointer font-light"
           >
-            <MessageSquare size={12} className="text-purple-500 mt-0.5 shrink-0" />
+            <MessageSquare size={12} className="text-zinc-500 mt-0.5 shrink-0" />
             <span className="line-clamp-2">{s}</span>
           </button>
         ))}

@@ -160,3 +160,134 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE FUNCTION handle_new_user();
+
+-- ============================================
+-- AI Lead Scoring Updates
+-- ============================================
+ALTER TABLE leads 
+ADD COLUMN IF NOT EXISTS score INTEGER DEFAULT 0,
+ADD COLUMN IF NOT EXISTS score_breakdown JSONB,
+ADD COLUMN IF NOT EXISTS score_updated_at TIMESTAMPTZ;
+
+-- ============================================
+-- Churn Shield
+-- ============================================
+CREATE TABLE IF NOT EXISTS churn_signals (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES profiles(id),
+  contact_name TEXT,
+  churn_probability INTEGER,
+  risk_level TEXT,
+  signals JSONB,
+  suggested_action TEXT,
+  recovery_message TEXT,
+  detected_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Seed Churn Data (Requires valid current_user_id to run properly, placeholders used)
+-- INSERT INTO churn_signals (id, user_id, contact_name, churn_probability, risk_level, signals, suggested_action, recovery_message, detected_at) VALUES 
+-- (
+--   gen_random_uuid(), 
+--   NULL, -- Replace with [current_user_id]
+--   'Elena Rostova', 73, 'critical',
+--   '["3 unresolved complaints in 7 days", "Sentiment declined from Neutral to Frustrated", "Mentioned competitor Freshdesk twice", "Response time from agent exceeded 4 hours"]',
+--   'Offer 20% retention discount immediately',
+--   'Hi Elena, I wanted to personally reach out and apologize for the delays you have experienced. I have escalated your case and would like to offer you an exclusive loyalty discount as an appreciation for your patience. Can we schedule a quick call this week?',
+--   NOW()
+-- ),
+-- (
+--   gen_random_uuid(),
+--   NULL, -- Replace with [current_user_id]
+--   'Carlos Mendez', 45, 'high',
+--   '["2 billing questions unanswered", "Reduced message frequency this week"]',
+--   'Send proactive check-in message',
+--   'Hi Carlos, just checking in to make sure everything is going smoothly. Is there anything I can help clarify?',
+--   NOW()
+-- );
+
+-- ============================================
+-- Promises Tracker
+-- ============================================
+CREATE TABLE IF NOT EXISTS promises (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  conversation_id UUID REFERENCES conversations(id),
+  user_id UUID REFERENCES profiles(id),
+  promise_text TEXT,
+  promised_to TEXT,
+  due_date TIMESTAMPTZ,
+  status TEXT DEFAULT 'pending',
+  detected_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- INSERT INTO promises (id, conversation_id, user_id, promise_text, promised_to, due_date, status) VALUES 
+-- (gen_random_uuid(), NULL, NULL, 'Send security portal link to Sarah Jenkins', 'Sarah Jenkins', NOW() - INTERVAL '1 day', 'pending'),
+-- (gen_random_uuid(), NULL, NULL, 'Share enterprise pricing deck with Marco Rossi', 'Marco Rossi', NOW(), 'pending'),
+-- (gen_random_uuid(), NULL, NULL, 'Schedule onboarding call with Amanda Cole', 'Amanda Cole', NOW() + INTERVAL '1 day', 'pending');
+
+-- ============================================
+-- Appointments
+-- ============================================
+CREATE TABLE IF NOT EXISTS appointments (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES profiles(id),
+  conversation_id UUID REFERENCES conversations(id),
+  contact_name TEXT NOT NULL,
+  contact_channel TEXT,
+  scheduled_at TIMESTAMPTZ NOT NULL,
+  duration_minutes INTEGER DEFAULT 30,
+  meeting_type TEXT DEFAULT 'demo',
+  status TEXT DEFAULT 'scheduled',
+  ai_detected BOOLEAN DEFAULT TRUE,
+  notes TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Seed Appointments Data
+-- INSERT INTO appointments (id, contact_name, contact_channel, scheduled_at, duration_minutes, meeting_type, status, ai_detected) VALUES 
+-- (gen_random_uuid(), 'Sarah Jenkins', 'WhatsApp', NOW() + INTERVAL '1 day' + INTERVAL '10 hours', 30, 'Demo Call', 'scheduled', TRUE),
+-- (gen_random_uuid(), 'Marco Rossi', 'Email', NOW() + INTERVAL '15 hours', 45, 'Product Demo', 'scheduled', TRUE),
+-- (gen_random_uuid(), 'Amanda Cole', 'Instagram', NOW() + INTERVAL '2 days' + INTERVAL '14 hours', 15, 'Follow-up', 'scheduled', FALSE),
+-- (gen_random_uuid(), 'Priya Sharma', 'WhatsApp', NOW() + INTERVAL '4 days' + INTERVAL '11 hours', 60, 'Onboarding', 'scheduled', TRUE);
+
+-- ============================================
+-- Follow-Ups
+-- ============================================
+CREATE TABLE IF NOT EXISTS follow_ups (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  conversation_id UUID REFERENCES conversations(id),
+  user_id UUID REFERENCES profiles(id),
+  contact_name TEXT,
+  channel TEXT,
+  trigger_type TEXT,
+  scheduled_at TIMESTAMPTZ,
+  status TEXT DEFAULT 'pending',
+  ai_message TEXT,
+  sent_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Seed Follow-Ups Data
+-- INSERT INTO follow_ups (id, contact_name, channel, trigger_type, scheduled_at, status, ai_message) VALUES
+-- (gen_random_uuid(), 'Marco Rossi', 'WhatsApp', 'no_reply', NOW() + INTERVAL '2 hours', 'pending', 'Hi Marco! Just following up on your question about the 25-agent plan. I have put together a custom proposal for DesignCo IT — would love to walk you through it. Are you free for a 15-minute call this week?'),
+-- (gen_random_uuid(), 'Amanda Cole', 'Email', 'lead_inactive', NOW() + INTERVAL '1 hour', 'pending', 'Hi Amanda, I wanted to circle back on your Salesforce integration question. Our team has confirmed full bi-directional sync is available on the Pro plan. Can I send over the technical spec sheet?'),
+-- (gen_random_uuid(), 'Priya Sharma', 'WhatsApp', 'post_demo', NOW() + INTERVAL '1 day' + INTERVAL '9 hours', 'pending', 'Hi Priya! It was great speaking with you about the compliance features. As promised, here is the SOC2 documentation link. Let me know if your team has any questions!');
+
+-- ============================================
+-- Workspaces
+-- ============================================
+CREATE TABLE IF NOT EXISTS workspaces (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES profiles(id),
+  name TEXT NOT NULL,
+  business_type TEXT,
+  plan TEXT DEFAULT 'pro',
+  avatar_color TEXT,
+  is_active BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Seed Workspaces Data
+-- INSERT INTO workspaces (id, name, business_type, plan, avatar_color, is_active) VALUES
+-- (gen_random_uuid(), 'Spice Garden', 'Restaurant', 'pro', '#7c3aed', TRUE),
+-- (gen_random_uuid(), 'TechFlow Agency', 'Agency', 'growth', '#0891b2', FALSE),
+-- (gen_random_uuid(), 'Bloom Salon', 'Retail', 'starter', '#db2777', FALSE);

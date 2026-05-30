@@ -38,7 +38,7 @@ export function GlowCard({
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       style={{ willChange: 'transform, opacity' }}
       className={cn(
-        'relative rounded-xl border border-white/[0.05] bg-slate-900/60 backdrop-blur-md overflow-hidden transition-shadow duration-300',
+        'relative rounded-xl border border-white/[0.05] bg-zinc-900/60 backdrop-blur-md overflow-hidden transition-shadow duration-300',
         isHovered && 'shadow-2xl',
         className
       )}

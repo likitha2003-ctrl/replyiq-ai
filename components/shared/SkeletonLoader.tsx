@@ -9,7 +9,7 @@ export function SkeletonLoader({ className, ...props }: React.HTMLAttributes<HTM
     <div
       className={cn(
         'rounded-lg animate-shimmer',
-        'bg-gradient-to-r from-slate-800/60 via-slate-700/40 to-slate-800/60',
+        'bg-gradient-to-r from-zinc-800/60 via-zinc-700/40 to-zinc-800/60',
         'bg-[length:200%_100%]',
         className
       )}
@@ -43,7 +43,7 @@ export function AvatarSkeleton({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
 // Stat card skeleton
 export function StatCardSkeleton() {
   return (
-    <div className="p-5 rounded-2xl border border-white/[0.04] bg-slate-950/20 space-y-4">
+    <div className="p-5 rounded-2xl border border-white/[0.04] bg-zinc-950/20 space-y-4">
       <div className="flex items-start justify-between">
         <div className="space-y-2 flex-1">
           <SkeletonLoader className="h-2.5 w-24" />
@@ -62,12 +62,12 @@ export function StatCardSkeleton() {
 // Chart skeleton
 export function ChartSkeleton({ className }: { className?: string }) {
   return (
-    <div className={cn('rounded-2xl border border-white/[0.04] bg-slate-950/20 p-5 space-y-4', className)}>
+    <div className={cn('rounded-2xl border border-white/[0.04] bg-zinc-950/20 p-5 space-y-4', className)}>
       <div className="space-y-1">
         <SkeletonLoader className="h-3.5 w-40" />
         <SkeletonLoader className="h-2.5 w-60" />
       </div>
-      <div className="h-52 rounded-xl bg-slate-900/30 flex items-end gap-2 px-4 pb-4 overflow-hidden">
+      <div className="h-52 rounded-xl bg-zinc-900/30 flex items-end gap-2 px-4 pb-4 overflow-hidden">
         {[60, 80, 45, 90, 70, 85, 55].map((h, i) => (
           <SkeletonLoader key={i} className="flex-1 rounded-t-md" style={{ height: `${h}%` }} />
         ))}
@@ -82,7 +82,7 @@ export function InboxSkeleton() {
     <div className="space-y-3">
       <SkeletonLoader className="h-9 w-full rounded-xl" />
       {Array.from({ length: 5 }).map((_, i) => (
-        <div key={i} className="flex items-center gap-3 p-3 rounded-xl border border-white/[0.03] bg-slate-900/20">
+        <div key={i} className="flex items-center gap-3 p-3 rounded-xl border border-white/[0.03] bg-zinc-900/20">
           <AvatarSkeleton />
           <div className="flex-1 space-y-2 min-w-0">
             <div className="flex justify-between">

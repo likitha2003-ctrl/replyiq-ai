@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, User, Mail, MessageSquare, PhoneCall } from 'lucide-react';
+import { Sparkles, User, Mail, MessageSquare, PhoneCall, Camera } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { Message, Conversation } from '../../types';
 
@@ -39,17 +39,19 @@ export function MessageBubble({ message, conversation }: MessageBubbleProps) {
               className="h-8 w-8 rounded-full border border-white/10 object-cover"
             />
           ) : (
-            <div className="h-8 w-8 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center">
-              <User size={14} className="text-slate-400" />
+            <div className="h-8 w-8 rounded-full bg-zinc-800 border border-white/10 flex items-center justify-center">
+              <User size={14} className="text-zinc-400" />
             </div>
           )}
           
           {/* Small Channel badge */}
-          <div className="absolute -bottom-1 -right-1 rounded-full bg-slate-900 border border-white/10 p-0.5">
+          <div className="absolute -bottom-1 -right-1 rounded-full bg-zinc-900 border border-white/10 p-0.5">
             {message.channel === 'whatsapp' ? (
               <PhoneCall size={8} className="text-emerald-400" />
             ) : message.channel === 'sms' ? (
               <MessageSquare size={8} className="text-cyan-400" />
+            ) : message.channel === 'instagram' ? (
+              <Camera size={8} className="text-pink-400" />
             ) : (
               <Mail size={8} className="text-blue-400" />
             )}
@@ -62,17 +64,17 @@ export function MessageBubble({ message, conversation }: MessageBubbleProps) {
         <div
           className={cn("rounded-2xl px-4 py-3 text-sm shadow-md leading-relaxed relative overflow-hidden", {
             // User message style
-            "bg-slate-800/60 text-slate-200 border border-white/5 rounded-tl-none": isUser,
+            "bg-zinc-800/60 text-zinc-200 border border-white/5 rounded-tl-none": isUser,
             // Agent message style
-            "bg-slate-700/50 text-white border border-white/10 rounded-tr-none": isAgent,
+            "bg-zinc-700/50 text-white border border-white/10 rounded-tr-none": isAgent,
             // AI message style
-            "bg-gradient-to-r from-violet-950/40 to-indigo-950/40 text-purple-200 border border-purple-500/25 rounded-tr-none": isAI,
+            "bg-gradient-to-r from-violet-950/40 to-zinc-950/40 text-zinc-200 border border-zinc-500/25 rounded-tr-none": isAI,
           })}
         >
           {isAI && (
-            <div className="absolute top-0 right-0 p-1 flex items-center gap-1 bg-purple-500/10 border-l border-b border-purple-500/20 rounded-bl-lg">
-              <Sparkles size={10} className="text-purple-400 animate-pulse" />
-              <span className="text-[8px] text-purple-400 font-bold uppercase tracking-wider pr-0.5">Auto-Pilot</span>
+            <div className="absolute top-0 right-0 p-1 flex items-center gap-1 bg-zinc-500/10 border-l border-b border-zinc-500/20 rounded-bl-lg">
+              <Sparkles size={10} className="text-zinc-400 animate-pulse" />
+              <span className="text-[8px] text-zinc-400 font-bold uppercase tracking-wider pr-0.5">Auto-Pilot</span>
             </div>
           )}
           <p className="whitespace-pre-wrap">{message.content}</p>
@@ -80,7 +82,7 @@ export function MessageBubble({ message, conversation }: MessageBubbleProps) {
         
         {/* Timestamp */}
         <span
-          className={cn("text-[9px] text-slate-500 px-1", {
+          className={cn("text-[9px] text-zinc-500 px-1", {
             "text-left": isUser,
             "text-right": !isUser,
           })}
@@ -93,11 +95,11 @@ export function MessageBubble({ message, conversation }: MessageBubbleProps) {
       {!isUser && (
         <div className="shrink-0">
           {isAI ? (
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-pink-500 via-purple-600 to-indigo-500 flex items-center justify-center border border-purple-500/30 shadow-lg shadow-purple-500/15">
+            <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-pink-500 via-zinc-600 to-zinc-500 flex items-center justify-center border border-zinc-500/30 shadow-lg shadow-zinc-500/15">
               <Sparkles size={14} className="text-white" />
             </div>
           ) : (
-            <div className="h-8 w-8 rounded-full bg-indigo-600 border border-indigo-500/20 flex items-center justify-center">
+            <div className="h-8 w-8 rounded-full bg-zinc-600 border border-zinc-500/20 flex items-center justify-center">
               <User size={14} className="text-white" />
             </div>
           )}

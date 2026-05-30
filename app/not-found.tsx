@@ -33,7 +33,7 @@ export default function NotFound() {
           transition={{ delay: 0.1, duration: 0.5 }}
           className="mb-6"
         >
-          <span className="text-[120px] font-extrabold leading-none font-heading tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white via-slate-300 to-slate-600 select-none block"
+          <span className="text-[120px] font-extrabold leading-none font-heading tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white via-zinc-300 to-zinc-600 select-none block"
             style={{ textShadow: '0 0 80px rgba(139,92,246,0.3)' }}>
             404
           </span>
@@ -63,7 +63,7 @@ export default function NotFound() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="text-sm text-slate-400 leading-relaxed mb-8"
+          className="text-sm text-zinc-400 leading-relaxed mb-8"
         >
           The AI co-pilot searched every vector in the database and couldn't locate this page.
           It may have been moved, deleted, or never existed.
@@ -77,7 +77,7 @@ export default function NotFound() {
         >
           <button
             onClick={() => router.push('/')}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-sm font-bold shadow-lg shadow-violet-500/25 transition-all hover:scale-105 active:scale-95"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-zinc-600 hover:from-violet-500 hover:to-zinc-500 text-white text-sm font-bold shadow-lg shadow-violet-500/25 transition-all hover:scale-105 active:scale-95"
           >
             <Home size={15} />
             Back to Home

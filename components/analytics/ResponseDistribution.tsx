@@ -14,10 +14,10 @@ interface ResponseDistributionProps {
 
 export function ResponseDistribution({ data }: ResponseDistributionProps) {
   return (
-    <div className="w-full h-80 rounded-2xl border border-white/[0.04] bg-slate-950/20 backdrop-blur-xl p-5 relative overflow-hidden flex flex-col justify-between">
+    <div className="w-full h-80 rounded-2xl border border-white/[0.04] bg-zinc-950/20 backdrop-blur-xl p-5 relative overflow-hidden flex flex-col justify-between">
       <div>
         <h3 className="text-xs font-bold text-white tracking-wide">Response Time Distribution</h3>
-        <span className="text-[10px] text-slate-500 block mt-0.5">Average reply latency categorizations for all resolved queries.</span>
+        <span className="text-[10px] text-zinc-500 block mt-0.5">Average reply latency categorizations for all resolved queries.</span>
       </div>
 
       <div className="flex-1 min-h-0 mt-4">
@@ -43,10 +43,10 @@ export function ResponseDistribution({ data }: ResponseDistributionProps) {
               content={({ active, payload }) => {
                 if (active && payload && payload.length) {
                   return (
-                    <div className="p-3 border border-white/[0.08] bg-slate-950/80 backdrop-blur-xl rounded-xl shadow-2xl">
-                      <span className="text-[10px] font-bold text-slate-500 block mb-1">{payload[0].payload.bucket}</span>
+                    <div className="p-3 border border-white/[0.08] bg-zinc-950/80 backdrop-blur-xl rounded-xl shadow-2xl">
+                      <span className="text-[10px] font-bold text-zinc-500 block mb-1">{payload[0].payload.bucket}</span>
                       <div className="flex items-center gap-4 justify-between text-[11px] font-semibold">
-                        <span className="text-slate-400">Total Conversations</span>
+                        <span className="text-zinc-400">Total Conversations</span>
                         <span className="text-white font-bold">{payload[0].value}</span>
                       </div>
                     </div>

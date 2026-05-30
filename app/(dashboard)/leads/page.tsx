@@ -144,13 +144,13 @@ export default function LeadsPage() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08 }}
-            className={`flex items-center gap-3.5 p-4 rounded-xl border ${stat.border} bg-slate-900/40 shadow-lg`}
+            className={`flex items-center gap-3.5 p-4 rounded-xl border ${stat.border} bg-zinc-900/40 shadow-lg`}
           >
             <div className={`p-2.5 rounded-lg ${stat.bg}`}>
               <stat.icon size={18} className={stat.color} />
             </div>
             <div>
-              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block">{stat.label}</span>
+              <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider block">{stat.label}</span>
               <p className="text-xl font-bold text-white leading-none mt-1">{stat.value}</p>
             </div>
           </motion.div>
@@ -177,7 +177,7 @@ export default function LeadsPage() {
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   priorityFilter === tab.value
                     ? 'bg-violet-500/15 text-violet-300 border border-violet-500/20'
-                    : 'text-slate-400 hover:text-white hover:bg-white/[0.03]'
+                    : 'text-zinc-400 hover:text-white hover:bg-white/[0.03]'
                 }`}
               >
                 {tab.emoji && <span className="mr-1">{tab.emoji}</span>}
@@ -189,9 +189,9 @@ export default function LeadsPage() {
 
         <div className="flex items-center gap-3">
           {/* Pipeline Value */}
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/[0.06] bg-slate-900/40 text-xs">
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/[0.06] bg-zinc-900/40 text-xs">
             <TrendingUp size={14} className="text-emerald-400" />
-            <span className="text-slate-500 font-medium">Pipeline:</span>
+            <span className="text-zinc-500 font-medium">Pipeline:</span>
             <span className="font-bold text-white"><AnimatedCounter value={totalPipelineValue} /></span>
           </div>
 
@@ -199,14 +199,14 @@ export default function LeadsPage() {
           <div className="flex items-center gap-1 bg-white/[0.02] border border-white/[0.04] rounded-xl p-1">
             <button
               onClick={() => setViewMode('kanban')}
-              className={`p-2 rounded-lg transition-all ${viewMode === 'kanban' ? 'bg-violet-500/15 text-violet-300' : 'text-slate-500 hover:text-white'}`}
+              className={`p-2 rounded-lg transition-all ${viewMode === 'kanban' ? 'bg-violet-500/15 text-violet-300' : 'text-zinc-500 hover:text-white'}`}
               title="Kanban View"
             >
               <LayoutGrid size={16} />
             </button>
             <button
               onClick={() => setViewMode('table')}
-              className={`p-2 rounded-lg transition-all ${viewMode === 'table' ? 'bg-violet-500/15 text-violet-300' : 'text-slate-500 hover:text-white'}`}
+              className={`p-2 rounded-lg transition-all ${viewMode === 'table' ? 'bg-violet-500/15 text-violet-300' : 'text-zinc-500 hover:text-white'}`}
               title="Table View"
             >
               <Table2 size={16} />
@@ -216,7 +216,7 @@ export default function LeadsPage() {
           {/* CSV Export */}
           <button
             onClick={exportCSV}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-white/[0.06] bg-white/[0.02] text-xs font-medium text-slate-400 hover:bg-white/[0.04] hover:text-white transition-all"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-white/[0.06] bg-white/[0.02] text-xs font-medium text-zinc-400 hover:bg-white/[0.04] hover:text-white transition-all"
           >
             <Download size={14} /> Export
           </button>
@@ -242,10 +242,10 @@ export default function LeadsPage() {
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -10 }}
-              className="h-full overflow-auto rounded-xl border border-white/[0.04] bg-slate-950/30"
+              className="h-full overflow-auto rounded-xl border border-white/[0.04] bg-zinc-950/30"
             >
               <table className="w-full text-left">
-                <thead className="sticky top-0 z-10 bg-slate-900/80 backdrop-blur-lg border-b border-white/[0.04]">
+                <thead className="sticky top-0 z-10 bg-zinc-900/80 backdrop-blur-lg border-b border-white/[0.04]">
                   <tr>
                     {[
                       { key: 'contactName' as SortKey, label: 'Contact' },
@@ -256,18 +256,18 @@ export default function LeadsPage() {
                       <th
                         key={col.key}
                         onClick={() => handleSort(col.key)}
-                        className="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 cursor-pointer hover:text-white transition-colors select-none"
+                        className="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-zinc-400 cursor-pointer hover:text-white transition-colors select-none"
                       >
                         <div className="flex items-center gap-1.5">
                           {col.label}
-                          <ArrowUpDown size={10} className={sortKey === col.key ? 'text-violet-400' : 'text-slate-600'} />
+                          <ArrowUpDown size={10} className={sortKey === col.key ? 'text-violet-400' : 'text-zinc-600'} />
                         </div>
                       </th>
                     ))}
-                    <th className="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Priority</th>
-                    <th className="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Status</th>
-                    <th className="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">Channel</th>
-                    <th className="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 w-10"></th>
+                    <th className="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-zinc-400">Priority</th>
+                    <th className="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-zinc-400">Status</th>
+                    <th className="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-zinc-400">Channel</th>
+                    <th className="px-4 py-3 text-[10px] font-bold uppercase tracking-wider text-zinc-400 w-10"></th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/[0.03]">
@@ -281,12 +281,12 @@ export default function LeadsPage() {
                     >
                       <td className="px-4 py-3.5">
                         <div className="flex items-center gap-3">
-                          <div className="h-8 w-8 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center text-[10px] font-bold text-slate-300 shrink-0">
+                          <div className="h-8 w-8 rounded-full bg-zinc-800 border border-white/10 flex items-center justify-center text-[10px] font-bold text-zinc-300 shrink-0">
                             {lead.contactName.split(' ').map(n => n[0]).join('').slice(0, 2)}
                           </div>
                           <div>
                             <div className="text-xs font-semibold text-white">{lead.contactName}</div>
-                            <div className="text-[10px] text-slate-500 flex items-center gap-1">
+                            <div className="text-[10px] text-zinc-500 flex items-center gap-1">
                               {lead.companyName && <><Building2 size={9} /> {lead.companyName}</>}
                             </div>
                           </div>
@@ -299,24 +299,24 @@ export default function LeadsPage() {
                         <div className="flex items-center gap-2">
                           <div className="w-12 h-1.5 rounded-full bg-white/5 overflow-hidden">
                             <div
-                              className={`h-full rounded-full ${lead.confidence >= 80 ? 'bg-emerald-500' : lead.confidence >= 60 ? 'bg-amber-500' : 'bg-slate-500'}`}
+                              className={`h-full rounded-full ${lead.confidence >= 80 ? 'bg-emerald-500' : lead.confidence >= 60 ? 'bg-amber-500' : 'bg-zinc-500'}`}
                               style={{ width: `${lead.confidence}%` }}
                             />
                           </div>
-                          <span className="text-[10px] text-slate-400 font-medium">{lead.confidence}%</span>
+                          <span className="text-[10px] text-zinc-400 font-medium">{lead.confidence}%</span>
                         </div>
                       </td>
-                      <td className="px-4 py-3.5 text-[10px] text-slate-400">{formatTime(lead.dateCreated)}</td>
+                      <td className="px-4 py-3.5 text-[10px] text-zinc-400">{formatTime(lead.dateCreated)}</td>
                       <td className="px-4 py-3.5">{getPriorityBadge(lead.priority)}</td>
                       <td className="px-4 py-3.5">{getStatusBadge(lead.status)}</td>
                       <td className="px-4 py-3.5">
                         <div className="flex items-center gap-1.5">
                           {getChannelIcon(lead.channel)}
-                          <span className="text-[10px] text-slate-500 capitalize">{lead.channel}</span>
+                          <span className="text-[10px] text-zinc-500 capitalize">{lead.channel}</span>
                         </div>
                       </td>
                       <td className="px-4 py-3.5">
-                        <button className="p-1.5 rounded-md text-slate-500 opacity-0 group-hover:opacity-100 hover:bg-violet-500/10 hover:text-violet-400 transition-all">
+                        <button className="p-1.5 rounded-md text-zinc-500 opacity-0 group-hover:opacity-100 hover:bg-violet-500/10 hover:text-violet-400 transition-all">
                           <ExternalLink size={12} />
                         </button>
                       </td>
@@ -325,7 +325,7 @@ export default function LeadsPage() {
                 </tbody>
               </table>
               {filteredLeads.length === 0 && (
-                <div className="py-16 text-center text-sm text-slate-500">No leads match the current filter.</div>
+                <div className="py-16 text-center text-sm text-zinc-500">No leads match the current filter.</div>
               )}
             </motion.div>
           )}

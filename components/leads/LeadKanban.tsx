@@ -6,6 +6,7 @@ import { useLeads } from '../../lib/hooks/useLeads';
 import { Lead } from '../../types';
 import { formatCurrency } from '../../lib/utils';
 import LeadCard from './LeadCard';
+import LeadDetailModal from './LeadDetailModal';
 
 type ColumnStatus = Lead['status'];
 
@@ -20,6 +21,9 @@ interface ColumnConfig {
 export function LeadKanban() {
   const { leads, leadsByStatus, updateLeadStatus } = useLeads();
   const [draggedOverCol, setDraggedOverCol] = useState<ColumnStatus | null>(null);
+  const [selectedLeadId, setSelectedLeadId] = useState<string | null>(null);
+
+  const selectedLead = leads.find((l) => l.id === selectedLeadId) || null;
 
   const columns: ColumnConfig[] = [
     {
@@ -102,11 +106,11 @@ export function LeadKanban() {
             className={`flex flex-col rounded-2xl border transition-all duration-300 min-h-[420px] w-full max-h-[75vh] overflow-hidden ${
               isDraggedOver
                 ? `${col.borderGlow} bg-white/[0.02] shadow-2xl scale-[1.01]`
-                : 'border-white/[0.04] bg-slate-950/30'
+                : 'border-white/[0.04] bg-zinc-950/30'
             }`}
           >
             {/* Column Header */}
-            <div className="p-4 border-b border-white/[0.04] flex items-center justify-between shrink-0 bg-slate-950/50">
+            <div className="p-4 border-b border-white/[0.04] flex items-center justify-between shrink-0 bg-zinc-950/50">
               <div className="flex items-center gap-2">
                 <span className="text-sm">{col.emoji}</span>
                 <span className="text-xs font-bold text-white tracking-wide">{col.title}</span>
@@ -114,13 +118,13 @@ export function LeadKanban() {
                   key={colLeads.length}
                   initial={{ scale: 1.4 }}
                   animate={{ scale: 1 }}
-                  className="text-[10px] bg-white/[0.04] border border-white/[0.06] text-slate-400 px-2 py-0.5 rounded-full font-bold"
+                  className="text-[10px] bg-white/[0.04] border border-white/[0.06] text-zinc-400 px-2 py-0.5 rounded-full font-bold"
                 >
                   {colLeads.length}
                 </motion.span>
               </div>
               
-              <span className="text-[10px] font-bold text-slate-500">
+              <span className="text-[10px] font-bold text-zinc-500">
                 {formatCurrency(totalValue)}
               </span>
             </div>
@@ -128,7 +132,7 @@ export function LeadKanban() {
             {/* Cards Area */}
             <div className="flex-1 overflow-y-auto p-3 space-y-3 scrollbar-thin scrollbar-thumb-white/5 scrollbar-track-transparent">
               {colLeads.length === 0 ? (
-                <div className="h-28 border border-dashed border-white/[0.06] rounded-xl flex flex-col items-center justify-center text-slate-600 text-[10px]">
+                <div className="h-28 border border-dashed border-white/[0.06] rounded-xl flex flex-col items-center justify-center text-zinc-600 text-[10px]">
                   <span>Drag deals here</span>
                 </div>
               ) : (
@@ -138,6 +142,7 @@ export function LeadKanban() {
                     lead={lead}
                     onDragStart={handleDragStart}
                     index={i}
+                    onClick={() => setSelectedLeadId(lead.id)}
                   />
                 ))
               )}
@@ -145,6 +150,12 @@ export function LeadKanban() {
           </div>
         );
       })}
+
+      <LeadDetailModal
+        lead={selectedLead}
+        isOpen={!!selectedLeadId}
+        onClose={() => setSelectedLeadId(null)}
+      />
     </div>
   );
 }

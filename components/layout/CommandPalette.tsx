@@ -45,7 +45,7 @@ export function CommandPalette({ open, setOpen }: CommandPaletteProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-slate-950/60 backdrop-blur-sm"
+            className="fixed inset-0 bg-zinc-950/60 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
 
@@ -54,16 +54,16 @@ export function CommandPalette({ open, setOpen }: CommandPaletteProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -10 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="relative z-50 w-full max-w-[600px] overflow-hidden rounded-2xl border border-white/10 bg-slate-900/80 shadow-2xl shadow-violet-900/20 backdrop-blur-xl mx-4 sm:mx-0"
+            className="relative z-50 w-full max-w-[600px] overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/80 shadow-2xl shadow-violet-900/20 backdrop-blur-xl mx-4 sm:mx-0"
           >
             <div className="flex items-center border-b border-white/10 px-4">
-              <Search size={18} className="text-slate-400" />
+              <Search size={18} className="text-zinc-400" />
               <Command.Input 
                 placeholder="Search everything... (Press ESC to close)"
-                className="flex-1 bg-transparent px-4 py-4 text-sm text-slate-100 outline-none placeholder:text-slate-500"
+                className="flex-1 bg-transparent px-4 py-4 text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
               />
               <div 
-                className="cursor-pointer p-1 rounded-md hover:bg-white/10 text-slate-400 transition-colors"
+                className="cursor-pointer p-1 rounded-md hover:bg-white/10 text-zinc-400 transition-colors"
                 onClick={() => setOpen(false)}
               >
                 <X size={16} />
@@ -71,62 +71,62 @@ export function CommandPalette({ open, setOpen }: CommandPaletteProps) {
             </div>
 
             <Command.List className="max-h-[300px] overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-              <Command.Empty className="py-6 text-center text-sm text-slate-500">
+              <Command.Empty className="py-6 text-center text-sm text-zinc-500">
                 No results found.
               </Command.Empty>
 
-              <Command.Group heading={<span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 px-2 py-1 block">Pages</span>}>
+              <Command.Group heading={<span className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500 px-2 py-1 block">Pages</span>}>
                 <Command.Item
                   onSelect={() => runCommand(() => router.push('/inbox'))}
-                  className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-300 aria-selected:bg-violet-500/15 aria-selected:text-white transition-colors"
+                  className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-zinc-300 aria-selected:bg-violet-500/15 aria-selected:text-white transition-colors"
                 >
                   <Inbox size={16} className="text-violet-400" />
                   Inbox
                 </Command.Item>
                 <Command.Item
                   onSelect={() => runCommand(() => router.push('/leads'))}
-                  className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-300 aria-selected:bg-violet-500/15 aria-selected:text-white transition-colors"
+                  className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-zinc-300 aria-selected:bg-violet-500/15 aria-selected:text-white transition-colors"
                 >
                   <Zap size={16} className="text-amber-400" />
                   Leads Pipeline
                 </Command.Item>
                 <Command.Item
                   onSelect={() => runCommand(() => router.push('/analytics'))}
-                  className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-300 aria-selected:bg-violet-500/15 aria-selected:text-white transition-colors"
+                  className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-zinc-300 aria-selected:bg-violet-500/15 aria-selected:text-white transition-colors"
                 >
                   <BarChart2 size={16} className="text-emerald-400" />
                   Analytics
                 </Command.Item>
                 <Command.Item
                   onSelect={() => runCommand(() => router.push('/knowledge-base'))}
-                  className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-300 aria-selected:bg-violet-500/15 aria-selected:text-white transition-colors"
+                  className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-zinc-300 aria-selected:bg-violet-500/15 aria-selected:text-white transition-colors"
                 >
                   <Brain size={16} className="text-cyan-400" />
                   Knowledge Base
                 </Command.Item>
                 <Command.Item
                   onSelect={() => runCommand(() => router.push('/settings'))}
-                  className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-300 aria-selected:bg-violet-500/15 aria-selected:text-white transition-colors"
+                  className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-zinc-300 aria-selected:bg-violet-500/15 aria-selected:text-white transition-colors"
                 >
-                  <Settings2 size={16} className="text-slate-400" />
+                  <Settings2 size={16} className="text-zinc-400" />
                   Settings
                 </Command.Item>
               </Command.Group>
 
               {/* In a real app, we would search conversations and leads dynamically here */}
-              <Command.Group heading={<span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 px-2 pt-3 pb-1 block">Recent Conversations</span>}>
+              <Command.Group heading={<span className="text-[10px] font-semibold uppercase tracking-wider text-zinc-500 px-2 pt-3 pb-1 block">Recent Conversations</span>}>
                 <Command.Item
                   onSelect={() => runCommand(() => router.push('/inbox'))}
-                  className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-300 aria-selected:bg-violet-500/15 aria-selected:text-white transition-colors"
+                  className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-zinc-300 aria-selected:bg-violet-500/15 aria-selected:text-white transition-colors"
                 >
-                  <MessageSquare size={16} className="text-slate-400" />
+                  <MessageSquare size={16} className="text-zinc-400" />
                   Sarah Jenkins - "Issue with billing"
                 </Command.Item>
                 <Command.Item
                   onSelect={() => runCommand(() => router.push('/inbox'))}
-                  className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-300 aria-selected:bg-violet-500/15 aria-selected:text-white transition-colors"
+                  className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-zinc-300 aria-selected:bg-violet-500/15 aria-selected:text-white transition-colors"
                 >
-                  <MessageSquare size={16} className="text-slate-400" />
+                  <MessageSquare size={16} className="text-zinc-400" />
                   Marco Rossi - "Pricing inquiry"
                 </Command.Item>
               </Command.Group>

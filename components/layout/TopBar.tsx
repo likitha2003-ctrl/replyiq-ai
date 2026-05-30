@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Bell, Command, ChevronDown, MessageSquare, Zap, Settings, X, CheckCheck } from 'lucide-react';
 import { CommandPalette } from './CommandPalette';
 import { useNotificationStore } from '../../store/notificationStore';
+import { useWorkspaceStore } from '../../store/workspaceStore';
 import { formatTime } from '../../lib/utils';
 
 interface TopBarProps {
@@ -24,6 +25,9 @@ export function TopBar({ collapsed }: TopBarProps) {
   const [cmdOpen, setCmdOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const notifRef = useRef<HTMLDivElement>(null);
+
+  const { workspaces, activeWorkspaceId } = useWorkspaceStore();
+  const activeWorkspace = workspaces.find(w => w.id === activeWorkspaceId) || workspaces[0];
 
   const { notifications, markAllAsRead, markAsRead } = useNotificationStore();
   const unreadCount = notifications.filter((n) => !n.read).length;
@@ -71,7 +75,7 @@ export function TopBar({ collapsed }: TopBarProps) {
         <div className="flex items-center gap-3">
           <h1 className="text-base font-bold text-white font-heading tracking-wide">{getTitle()}</h1>
           <span className="hidden sm:block h-4 w-px bg-white/10" />
-          <span className="hidden sm:block text-[10px] text-slate-500 font-medium">ReplyIQ AI Workspace</span>
+          <span className="hidden sm:block text-[10px] text-zinc-500 font-medium">{activeWorkspace.name}</span>
         </div>
 
         {/* Center: Search trigger */}
@@ -80,11 +84,11 @@ export function TopBar({ collapsed }: TopBarProps) {
             onClick={() => setCmdOpen(true)}
             className="group flex cursor-pointer items-center justify-between rounded-xl border border-white/[0.05] bg-white/[0.02] px-3 py-2 transition-all hover:bg-white/[0.04] hover:border-white/10 focus-within:ring-1 focus-within:ring-violet-500/30 animate-[search-idle-glow_3s_infinite_ease-in-out]"
           >
-            <div className="flex items-center gap-2 text-slate-500 group-hover:text-slate-400">
+            <div className="flex items-center gap-2 text-zinc-500 group-hover:text-zinc-400">
               <Search size={14} />
               <span className="text-xs font-medium">Search conversations, leads, settings...</span>
             </div>
-            <div className="flex items-center gap-0.5 rounded bg-white/[0.05] px-1.5 py-0.5 text-[9px] font-bold text-slate-500 tracking-wider">
+            <div className="flex items-center gap-0.5 rounded bg-white/[0.05] px-1.5 py-0.5 text-[9px] font-bold text-zinc-500 tracking-wider">
               <Command size={9} />K
             </div>
           </div>
@@ -105,7 +109,7 @@ export function TopBar({ collapsed }: TopBarProps) {
           <div ref={notifRef} className="relative">
             <button
               onClick={() => setNotifOpen((o) => !o)}
-              className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.05] bg-white/[0.02] text-slate-400 transition-all hover:bg-white/[0.05] hover:text-white focus:outline-none focus:ring-1 focus:ring-violet-500/30"
+              className="relative flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.05] bg-white/[0.02] text-zinc-400 transition-all hover:bg-white/[0.05] hover:text-white focus:outline-none focus:ring-1 focus:ring-violet-500/30"
               title="Notifications (N)"
             >
               <Bell size={16} />
@@ -132,12 +136,12 @@ export function TopBar({ collapsed }: TopBarProps) {
                   exit={{ opacity: 0, y: 6, scale: 0.97 }}
                   transition={{ duration: 0.15, ease: 'easeOut' }}
                   style={{ willChange: 'transform, opacity' }}
-                  className="absolute right-0 top-11 w-80 rounded-2xl border border-white/[0.08] bg-slate-900/95 backdrop-blur-xl shadow-2xl overflow-hidden z-50"
+                  className="absolute right-0 top-11 w-80 rounded-2xl border border-white/[0.08] bg-zinc-900/95 backdrop-blur-xl shadow-2xl overflow-hidden z-50"
                 >
                   {/* Dropdown header */}
                   <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.05]">
                     <div className="flex items-center gap-2">
-                      <Bell size={12} className="text-slate-400" />
+                      <Bell size={12} className="text-zinc-400" />
                       <span className="text-xs font-bold text-white">Notifications</span>
                       {unreadCount > 0 && (
                         <span className="px-1.5 py-0.5 rounded-full bg-rose-500/15 text-rose-400 border border-rose-500/20 text-[9px] font-bold">
@@ -147,7 +151,7 @@ export function TopBar({ collapsed }: TopBarProps) {
                     </div>
                     <button
                       onClick={markAllAsRead}
-                      className="flex items-center gap-1 text-[9px] font-bold text-slate-500 hover:text-violet-400 transition-colors"
+                      className="flex items-center gap-1 text-[9px] font-bold text-zinc-500 hover:text-violet-400 transition-colors"
                     >
                       <CheckCheck size={10} />
                       Mark all read
@@ -157,7 +161,7 @@ export function TopBar({ collapsed }: TopBarProps) {
                   {/* Notification list */}
                   <div className="max-h-80 overflow-y-auto divide-y divide-white/[0.03]">
                     {notifications.length === 0 ? (
-                      <div className="py-10 text-center text-xs text-slate-600">No notifications yet.</div>
+                      <div className="py-10 text-center text-xs text-zinc-600">No notifications yet.</div>
                     ) : (
                       notifications.slice(0, 10).map((n) => {
                         const cfg = typeConfig[n.type] ?? typeConfig.system;
@@ -178,8 +182,8 @@ export function TopBar({ collapsed }: TopBarProps) {
                                   <span className="h-1.5 w-1.5 rounded-full bg-violet-500 shrink-0 mt-1" />
                                 )}
                               </div>
-                              <p className="text-[10px] text-slate-500 mt-0.5 leading-relaxed line-clamp-2">{n.description}</p>
-                              <p className="text-[9px] text-slate-600 mt-1 font-medium">{formatTime(n.timestamp)}</p>
+                              <p className="text-[10px] text-zinc-500 mt-0.5 leading-relaxed line-clamp-2">{n.description}</p>
+                              <p className="text-[9px] text-zinc-600 mt-1 font-medium">{formatTime(n.timestamp)}</p>
                             </div>
                           </div>
                         );
@@ -191,7 +195,7 @@ export function TopBar({ collapsed }: TopBarProps) {
                   <div className="border-t border-white/[0.05] px-4 py-2.5">
                     <button
                       onClick={() => setNotifOpen(false)}
-                      className="w-full text-center text-[10px] font-bold text-slate-500 hover:text-violet-400 transition-colors"
+                      className="w-full text-center text-[10px] font-bold text-zinc-500 hover:text-violet-400 transition-colors"
                     >
                       Close Panel
                     </button>
@@ -203,10 +207,10 @@ export function TopBar({ collapsed }: TopBarProps) {
 
           {/* Avatar */}
           <div className="flex cursor-pointer items-center gap-2 rounded-lg border border-transparent p-1 transition-colors hover:bg-white/[0.03] focus:outline-none focus:ring-1 focus:ring-violet-500/30">
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-violet-600 to-indigo-500 border border-white/10 flex items-center justify-center text-[10px] font-bold text-white shadow-lg">
+            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-violet-600 to-zinc-500 border border-white/10 flex items-center justify-center text-[10px] font-bold text-white shadow-lg">
               RI
             </div>
-            <ChevronDown size={12} className="text-slate-500 hidden sm:block" />
+            <ChevronDown size={12} className="text-zinc-500 hidden sm:block" />
           </div>
         </div>
       </header>

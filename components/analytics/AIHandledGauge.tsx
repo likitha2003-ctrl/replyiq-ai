@@ -32,13 +32,13 @@ export function AIHandledGauge({ value }: AIHandledGaugeProps) {
   ];
 
   return (
-    <div className="w-full h-80 rounded-2xl border border-white/[0.04] bg-slate-950/20 backdrop-blur-xl p-5 relative overflow-hidden flex flex-col justify-between">
+    <div className="w-full h-80 rounded-2xl border border-white/[0.04] bg-zinc-950/20 backdrop-blur-xl p-5 relative overflow-hidden flex flex-col justify-between">
       {/* Background glow */}
       <div className={`absolute -inset-px bg-gradient-to-t ${glow} to-transparent pointer-events-none`} />
 
       <div>
         <h3 className="text-xs font-bold text-white tracking-wide">AI Autopilot Handled Rate</h3>
-        <span className="text-[10px] text-slate-500 block mt-0.5">Percentage of queries completely resolved without human agent touch.</span>
+        <span className="text-[10px] text-zinc-500 block mt-0.5">Percentage of queries completely resolved without human agent touch.</span>
       </div>
 
       <div className="flex-1 flex flex-col items-center justify-center relative min-h-0">
@@ -69,14 +69,14 @@ export function AIHandledGauge({ value }: AIHandledGaugeProps) {
           <span className="text-3xl font-extrabold tracking-tight text-white block">
             <AnimatedCounter value={value} suffix="%" />
           </span>
-          <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mt-1 block">
+          <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest mt-1 block">
             Target: 80%+
           </span>
         </div>
       </div>
 
       {/* Footer Info */}
-      <div className="border-t border-white/[0.03] pt-3 flex items-center justify-between text-[10px] text-slate-500 font-semibold relative z-10">
+      <div className="border-t border-white/[0.03] pt-3 flex items-center justify-between text-[10px] text-zinc-500 font-semibold relative z-10">
         <span>Autonomous Agents Active</span>
         <span className="text-emerald-400 flex items-center gap-1.5">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />

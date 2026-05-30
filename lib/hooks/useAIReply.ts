@@ -8,14 +8,14 @@ export function useAIReply() {
   const updateDraft = useInboxStore((state) => state.updateConversationAIDraft);
   const aiSettings = useAIModeStore((state) => state.settings);
 
-  const generateReply = async (conversationId: string, messageContent: string) => {
+  const generateReply = async (conversationId: string, messageContent: string, toneOverride?: string) => {
     setIsGenerating(true);
     try {
       const formattedHistory = [{ role: 'customer', content: messageContent }];
       const draft = await generateAIReply(
         formattedHistory,
         aiSettings.customInstructions,
-        aiSettings.tone
+        toneOverride || aiSettings.tone
       );
       updateDraft(conversationId, draft);
       return draft;

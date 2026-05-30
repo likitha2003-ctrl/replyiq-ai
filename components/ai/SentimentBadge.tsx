@@ -12,7 +12,7 @@ interface SentimentBadgeProps {
 export function SentimentBadge({ sentiment, urgencyScore, className }: SentimentBadgeProps) {
   let label = 'Neutral';
   let Icon = MessageSquare;
-  let style = 'bg-slate-500/10 text-slate-400 border-slate-500/20';
+  let style = 'bg-zinc-500/10 text-zinc-400 border-zinc-500/20';
 
   if (sentiment === 'positive') {
     label = 'Positive';

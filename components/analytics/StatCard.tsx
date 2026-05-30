@@ -41,14 +41,14 @@ export function StatCard({
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: index * 0.08, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
       whileHover={{ y: -2 }}
-      className="p-5 rounded-2xl border border-white/[0.04] bg-slate-950/20 backdrop-blur-xl relative overflow-hidden group transition-all duration-300 hover:border-white/[0.08] hover:shadow-2xl hover:shadow-violet-500/[0.02]"
+      className="p-5 rounded-2xl border border-white/[0.04] bg-zinc-950/20 backdrop-blur-xl relative overflow-hidden group transition-all duration-300 hover:border-white/[0.08] hover:shadow-2xl hover:shadow-violet-500/[0.02]"
     >
       {/* Background glow hover effect */}
       <div className={`absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-gradient-to-br ${glowColor} to-transparent`} />
 
       <div className="flex items-start justify-between relative z-10">
         <div>
-          <span className="text-[11px] text-slate-500 font-bold uppercase tracking-wider block">{name}</span>
+          <span className="text-[11px] text-zinc-500 font-bold uppercase tracking-wider block">{name}</span>
           <h3 className="text-2xl font-extrabold text-white mt-1.5 font-heading tracking-tight">
             <AnimatedCounter value={value} prefix={prefix} suffix={suffix} />
           </h3>
@@ -67,7 +67,7 @@ export function StatCard({
             {isUp ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
             {trend}
           </span>
-          <span className="text-[9px] text-slate-500 font-semibold tracking-wide">vs yesterday</span>
+          <span className="text-[9px] text-zinc-500 font-semibold tracking-wide">vs yesterday</span>
         </div>
 
         {/* Sparkline chart */}
