@@ -57,7 +57,7 @@ export function TopBar({ collapsed }: TopBarProps) {
   // Keyboard shortcut: Cmd+K
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         setCmdOpen((prev) => !prev);
       }

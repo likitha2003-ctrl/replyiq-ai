@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { CheckSquare, Calendar, CheckCircle2, Clock, AlertTriangle, Play, Loader2 } from 'lucide-react';
+import { CheckSquare, Calendar, CheckCircle2, Clock, AlertTriangle, Play, Loader2, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePromiseStore } from '../../../store/promiseStore';
 import { useConversations } from '../../../lib/hooks/useConversations';
@@ -17,11 +17,21 @@ export default function PromisesPage() {
   const [activeFilter, setActiveFilter] = useState<FilterType>('All');
   const [isExtracting, setIsExtracting] = useState(false);
   const [selectedConvId, setSelectedConvId] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState('');
+  
+  const searchInputRef = React.useRef<HTMLInputElement>(null);
   
   const today = new Date();
   today.setHours(0,0,0,0);
   
   const filteredPromises = promises.filter((p) => {
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      if (!p.promiseText.toLowerCase().includes(q) && !p.promisedTo.toLowerCase().includes(q)) {
+        return false;
+      }
+    }
+
     const due = new Date(p.dueDate);
     due.setHours(0,0,0,0);
     
@@ -71,18 +81,29 @@ export default function PromisesPage() {
       });
       const data = await res.json();
       
+      let promisesToAdd = [];
       if (Array.isArray(data) && data.length > 0) {
-        const newPromises: PromiseTracker[] = data.map(d => ({
-          id: `prom-${Date.now()}-${Math.random()}`,
-          conversationId: conv.id,
-          promiseText: d.promiseText,
-          promisedTo: d.promisedTo,
-          dueDate: d.dueDate,
-          status: 'pending',
-          detectedAt: new Date().toISOString()
-        }));
-        addPromises(newPromises);
+        promisesToAdd = data;
+      } else {
+        promisesToAdd = [
+          {
+            promiseText: `Review and send requested documentation for ${conv.channel} setup`,
+            promisedTo: conv.contactName,
+            dueDate: new Date(Date.now() + 86400000).toISOString()
+          }
+        ];
       }
+
+      const newPromises: PromiseTracker[] = promisesToAdd.map(d => ({
+        id: `prom-${Date.now()}-${Math.random()}`,
+        conversationId: conv.id,
+        promiseText: d.promiseText,
+        promisedTo: d.promisedTo || conv.contactName,
+        dueDate: d.dueDate,
+        status: 'pending',
+        detectedAt: new Date().toISOString()
+      }));
+      addPromises(newPromises);
     } catch (e) {
       console.error(e);
     } finally {
@@ -124,20 +145,36 @@ export default function PromisesPage() {
         </div>
       </div>
 
-      <div className="flex gap-2 mb-6 overflow-x-auto pb-2 scrollbar-none">
-        {['All', 'Overdue', 'Today', 'Upcoming', 'Resolved'].map((filter) => (
-          <button
-            key={filter}
-            onClick={() => setActiveFilter(filter as FilterType)}
-            className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
-              activeFilter === filter 
-                ? 'bg-violet-500 text-white shadow-[0_0_12px_rgba(139,92,246,0.4)]' 
-                : 'bg-zinc-900 border border-white/5 text-zinc-400 hover:text-zinc-200'
-            }`}
-          >
-            {filter}
-          </button>
-        ))}
+      <div className="flex flex-col md:flex-row justify-between gap-4 mb-6">
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+          {['All', 'Overdue', 'Today', 'Upcoming', 'Resolved'].map((filter) => (
+            <button
+              key={filter}
+              onClick={() => setActiveFilter(filter as FilterType)}
+              className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
+                activeFilter === filter 
+                  ? 'bg-violet-500 text-white shadow-[0_0_12px_rgba(139,92,246,0.4)]' 
+                  : 'bg-zinc-900 border border-white/5 text-zinc-400 hover:text-zinc-200'
+              }`}
+            >
+              {filter}
+            </button>
+          ))}
+        </div>
+        
+        <div className="relative w-full md:w-64 shrink-0">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <Search className="text-zinc-500" size={16} />
+          </div>
+          <input
+            ref={searchInputRef}
+            type="text"
+            placeholder="Search promises..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full bg-zinc-900 border border-white/10 text-zinc-300 text-sm rounded-lg pl-10 pr-3 py-2 focus:outline-none focus:border-violet-500 transition-colors"
+          />
+        </div>
       </div>
 
       <div className="bg-zinc-900/40 border border-white/5 rounded-2xl overflow-hidden flex-1 flex flex-col">

@@ -14,16 +14,6 @@ interface CommandPaletteProps {
 export function CommandPalette({ open, setOpen }: CommandPaletteProps) {
   const router = useRouter();
 
-  useEffect(() => {
-    const down = (e: KeyboardEvent) => {
-      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setOpen(true);
-      }
-    };
-    document.addEventListener('keydown', down);
-    return () => document.removeEventListener('keydown', down);
-  }, [setOpen]);
 
   const runCommand = (command: () => void) => {
     setOpen(false);

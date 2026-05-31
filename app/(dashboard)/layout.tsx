@@ -5,10 +5,18 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sidebar } from '../../components/layout/Sidebar';
 import { TopBar } from '../../components/layout/TopBar';
+import { startSimulator, stopSimulator } from '../../lib/simulator/messageSimulator';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
+
+  React.useEffect(() => {
+    startSimulator(undefined, 20000); // Send message every 20s
+    return () => {
+      stopSimulator();
+    };
+  }, []);
 
   return (
     <div className="relative min-h-screen w-full bg-[#06080f] text-zinc-200 flex overflow-hidden">

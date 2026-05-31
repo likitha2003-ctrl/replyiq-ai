@@ -1,15 +1,13 @@
 'use client'
 import { motion } from 'framer-motion'
+import { ShieldAlert, CheckSquare } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { FloatingPaths } from '@/components/ui/background-paths'
 import { SplineScene } from '@/components/ui/splite'
 import { Spotlight } from '@/components/ui/spotlight'
 import { GLSLHills } from '@/components/ui/glsl-hills'
 import { ContainerScroll } from '@/components/ui/container-scroll-animation'
-import { ReplyIQImageComparison } from '@/components/landing/ReplyIQImageComparison'
 import { ReplyIQStoryScroll } from '@/components/landing/ReplyIQStoryScroll'
-import { ReplyIQLightningSplit } from '@/components/landing/ReplyIQLightningSplit'
-import { ReplyIQFooter } from '@/components/landing/ReplyIQFooter'
 import { ReplyIQCpuFeatures } from '@/components/ui/demo-cpu'
 import { LandingNavbar } from '@/components/landing/LandingNavbar'
 import { AboutSection } from '@/components/landing/AboutSection'
@@ -23,26 +21,28 @@ export default function Page() {
       {/* NAVIGATION BAR */}
       <LandingNavbar />
       
-      {/* BACKGROUND ELEMENTS */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-         {/* Animated SVG Lines */}
-         <FloatingPaths position={1} />
-         <FloatingPaths position={-1} />
-         
-         {/* Subtle Grid Pattern */}
-         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_10%,transparent_100%)] pointer-events-none" />
-         
-         {/* Ambient Glows */}
-         <div className="absolute top-[-10%] right-[-5%] w-[800px] h-[800px] bg-purple-900/20 blur-[120px] rounded-full pointer-events-none" />
-         <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-blue-900/10 blur-[120px] rounded-full pointer-events-none" />
-         
-      </div>
+      {/* HERO SECTION WRAPPER */}
+      <div className="relative w-full min-h-screen overflow-hidden">
+        {/* BACKGROUND ELEMENTS */}
+        <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
+           {/* Animated SVG Lines */}
+           <FloatingPaths position={1} />
+           <FloatingPaths position={-1} />
+           
+           {/* Subtle Grid Pattern */}
+           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_10%,transparent_100%)] pointer-events-none" />
+           
+           {/* Ambient Glows */}
+           <div className="absolute top-[-10%] right-[-5%] w-[800px] h-[800px] bg-purple-900/20 blur-[120px] rounded-full pointer-events-none" />
+           <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-blue-900/10 blur-[120px] rounded-full pointer-events-none" />
+           
+        </div>
 
-      {/* Interactive Cursor Spotlight */}
-      <Spotlight size={600} className="z-10 mix-blend-screen opacity-50" />
+        {/* Interactive Cursor Spotlight */}
+        <Spotlight size={600} className="z-10 mix-blend-screen opacity-50" />
 
-      {/* CONTENT GRID */}
-      <div className="relative z-10 w-full min-h-screen max-w-screen-2xl mx-auto flex flex-col lg:flex-row items-center px-6 md:px-12 xl:px-24">
+        {/* CONTENT GRID */}
+        <div className="relative z-10 w-full min-h-screen max-w-screen-2xl mx-auto flex flex-col lg:flex-row items-center px-6 md:px-12 xl:px-24">
         
         {/* LEFT COLUMN - Typography & CTA */}
         <div className="flex-1 flex flex-col justify-center items-start pt-32 lg:pt-0 pb-12 lg:pb-0 z-30 pointer-events-none">
@@ -101,6 +101,7 @@ export default function Page() {
            </div>
         </div>
 
+      </div>
       </div>
       
       {/* SECTIONS WITH GLSL BACKGROUND */}
@@ -200,9 +201,6 @@ export default function Page() {
         </ContainerScroll>
       </div>
 
-      {/* COMPARISON SLIDER SECTION */}
-      <ReplyIQImageComparison />
-
       {/* STORY SCROLL SECTION */}
       <ReplyIQStoryScroll />
 
@@ -213,15 +211,283 @@ export default function Page() {
 
       </div>
 
-      {/* LIGHTNING SPLIT SECTION */}
-      <ReplyIQLightningSplit />
+      {/* DASHBOARD SCROLL ANIMATION SECTION */}
+      <div className="bg-[#0a0a10] py-[100px] px-6 md:px-12 relative z-10 w-full flex justify-center border-t border-white/5">
+        <div className="max-w-[1200px] w-full flex flex-col items-center">
+          
+          {/* SECTION HEADER */}
+          <div className="flex flex-col items-center text-center">
+            <div className="inline-block bg-purple-500/15 text-[#a78bfa] text-[12px] tracking-[0.1em] uppercase border border-purple-500/30 rounded-full px-[14px] py-[4px] mb-6">
+              LIVE PLATFORM
+            </div>
+            <h2 className="text-[48px] font-extrabold text-white tracking-[-0.03em] leading-tight mb-4">
+              See ReplyIQ in action
+            </h2>
+            <p className="text-[18px] text-[#9ca3af] max-w-2xl">
+              Every feature works in real time. No demos. No mockups. Just the product.
+            </p>
+          </div>
+
+          {/* DASHBOARD CARDS GRID */}
+          <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 mt-16">
+            
+            {/* CARD 1 — Unified Inbox Preview */}
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6 }}
+              className="col-span-1 md:col-span-2 bg-[#111118] border border-white/5 rounded-2xl p-6 h-[320px] overflow-hidden flex flex-col"
+            >
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_10px_rgba(124,58,237,0.8)]" />
+                  <span className="text-white text-[14px] font-semibold">Unified Inbox</span>
+                </div>
+                <div className="bg-green-500/10 text-green-400 text-[10px] font-bold px-2 py-0.5 rounded border border-green-500/20">
+                  AI ACTIVE
+                </div>
+              </div>
+              
+              <div className="flex flex-col gap-3">
+                {/* Item 1 */}
+                <div className="flex items-start bg-purple-500/10 p-3 rounded-lg gap-3 border border-purple-500/20">
+                  <div className="w-8 h-8 rounded-full bg-[#7c3aed] flex items-center justify-center text-white text-xs font-medium shrink-0">SJ</div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-white text-[13px] font-medium">Sarah Jenkins</span>
+                      <span className="text-gray-400 text-[11px]">2m ago</span>
+                    </div>
+                    <div className="text-gray-400 text-[11px] mt-0.5">checkout keeps throwing...</div>
+                    <div className="flex gap-1.5 mt-2">
+                      <span className="bg-blue-500/10 text-blue-400 text-[10px] px-1.5 rounded">Email</span>
+                      <span className="bg-red-500/10 text-red-400 text-[10px] px-1.5 rounded">Urgent</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Item 2 */}
+                <div className="flex items-start bg-white/5 p-3 rounded-lg gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#0891b2] flex items-center justify-center text-white text-xs font-medium shrink-0">MR</div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-white/80 text-[13px] font-medium">Marco Rossi</span>
+                      <span className="text-gray-500 text-[11px]">15m ago</span>
+                    </div>
+                    <div className="text-gray-500 text-[11px] mt-0.5">Hi, I saw your product...</div>
+                    <div className="flex gap-1.5 mt-2">
+                      <span className="bg-green-500/10 text-green-400 text-[10px] px-1.5 rounded">WhatsApp</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Item 3 */}
+                <div className="flex items-start bg-white/5 p-3 rounded-lg gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#db2777] flex items-center justify-center text-white text-xs font-medium shrink-0">ER</div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-white/80 text-[13px] font-medium">Elena Rostova</span>
+                      <span className="text-gray-500 text-[11px]">1h ago</span>
+                    </div>
+                    <div className="text-gray-500 text-[11px] mt-0.5">Why haven't I received...</div>
+                    <div className="flex gap-1.5 mt-2">
+                      <span className="bg-amber-500/10 text-amber-400 text-[10px] px-1.5 rounded">SMS</span>
+                      <span className="bg-red-500/10 text-red-400 text-[10px] px-1.5 rounded">Negative</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* CARD 2 — Lead Score */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="col-span-1 bg-[#111118] border border-white/5 rounded-2xl p-6 h-[320px] flex flex-col"
+            >
+              <div className="text-white text-[14px] font-semibold mb-6">AI Lead Scoring</div>
+              
+              <div className="flex-1 flex flex-col items-center justify-center relative mb-6">
+                <svg width="120" height="120" className="transform -rotate-90">
+                  <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="8" />
+                  <motion.circle 
+                    cx="60" cy="60" r="54" fill="none" stroke="#7c3aed" strokeWidth="8"
+                    strokeDasharray="339"
+                    initial={{ strokeDashoffset: 339 }}
+                    whileInView={{ strokeDashoffset: 20 }}
+                    transition={{ duration: 1.5, ease: "easeOut", delay: 0.4 }}
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <span className="text-white text-[32px] font-extrabold leading-none">94</span>
+                  <span className="text-gray-400 text-[12px]">Score</span>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-gray-400 text-[10px] w-20">Engagement</span>
+                  <div className="flex-1 h-1 bg-white/10 rounded-full overflow-hidden">
+                    <motion.div initial={{ width: 0 }} whileInView={{ width: '90%' }} transition={{ duration: 1 }} className="h-full bg-purple-500 rounded-full" />
+                  </div>
+                  <span className="text-white text-[10px] w-6 text-right">90%</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-gray-400 text-[10px] w-20">Purchase Intent</span>
+                  <div className="flex-1 h-1 bg-white/10 rounded-full overflow-hidden">
+                    <motion.div initial={{ width: 0 }} whileInView={{ width: '95%' }} transition={{ duration: 1 }} className="h-full bg-green-500 rounded-full" />
+                  </div>
+                  <span className="text-white text-[10px] w-6 text-right">95%</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-gray-400 text-[10px] w-20">Recency</span>
+                  <div className="flex-1 h-1 bg-white/10 rounded-full overflow-hidden">
+                    <motion.div initial={{ width: 0 }} whileInView={{ width: '98%' }} transition={{ duration: 1 }} className="h-full bg-blue-500 rounded-full" />
+                  </div>
+                  <span className="text-white text-[10px] w-6 text-right">98%</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-gray-400 text-[10px] w-20">Sentiment</span>
+                  <div className="flex-1 h-1 bg-white/10 rounded-full overflow-hidden">
+                    <motion.div initial={{ width: 0 }} whileInView={{ width: '72%' }} transition={{ duration: 1 }} className="h-full bg-amber-500 rounded-full" />
+                  </div>
+                  <span className="text-white text-[10px] w-6 text-right">72%</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* CARD 3 — Revenue Intelligence */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="col-span-1 bg-[#111118] border border-white/5 rounded-2xl p-6 h-[155px] flex flex-col"
+            >
+              <div className="text-white text-[14px] font-semibold mb-3">Revenue Intelligence</div>
+              <div className="text-purple-400 text-[28px] font-extrabold leading-none mb-1">₹32,800</div>
+              <div className="text-gray-400 text-[12px] mb-4">AI-attributed this month</div>
+              <div className="flex gap-2">
+                <span className="bg-green-500/10 text-green-400 text-[10px] px-2 py-1 rounded">WhatsApp · Best Channel</span>
+                <span className="bg-amber-500/10 text-amber-400 text-[10px] px-2 py-1 rounded">6–8 PM · Best Time</span>
+              </div>
+            </motion.div>
+
+            {/* CARD 4 — Churn Shield */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="col-span-1 bg-[#111118] border border-red-500/20 rounded-2xl p-6 h-[145px] flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <ShieldAlert size={16} className="text-red-400" />
+                  <span className="text-white text-[14px] font-semibold">Churn Shield</span>
+                </div>
+                <div className="text-red-400 text-[20px] font-bold leading-none mb-1">₹18,500 at risk</div>
+                <div className="text-gray-400 text-[12px]">Carlos Mendez · 45% probability</div>
+              </div>
+              <button className="w-full bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg py-1.5 text-[12px] font-medium hover:bg-red-500/30 transition-colors">
+                Send Recovery →
+              </button>
+            </motion.div>
+
+            {/* CARD 5 — Promises Tracker */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="col-span-1 bg-[#111118] border border-green-500/20 rounded-2xl p-6 h-[155px] flex flex-col md:col-start-3 md:row-start-2"
+            >
+              <div className="flex items-center gap-2 mb-4">
+                <CheckSquare size={16} className="text-green-400" />
+                <span className="text-white text-[14px] font-semibold">Promises Tracker</span>
+              </div>
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 rounded border border-red-400 shrink-0" />
+                    <span className="text-white text-[13px]">Send security link to Sarah</span>
+                  </div>
+                  <span className="bg-red-500/20 text-red-400 text-[9px] px-1.5 py-0.5 rounded">Overdue</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded bg-green-500/20 border border-green-500 flex items-center justify-center shrink-0">
+                    <div className="w-2 h-2 bg-green-500 rounded-sm" />
+                  </div>
+                  <span className="text-gray-500 text-[13px] line-through">Share pricing deck</span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* BOTTOM ROW — Stats strip */}
+          <div className="w-full mt-8 bg-purple-500/5 border border-purple-500/10 rounded-xl p-6 md:px-8 flex flex-wrap md:flex-nowrap items-center justify-between gap-6 md:gap-0">
+            <div className="flex flex-col items-center w-1/2 md:w-auto">
+              <span className="text-white text-[32px] font-extrabold">
+                <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>14</motion.span>
+              </span>
+              <span className="text-gray-400 text-[13px]">AI Modules</span>
+            </div>
+            <div className="hidden md:block w-px h-10 bg-white/10" />
+            <div className="flex flex-col items-center w-1/2 md:w-auto">
+              <span className="text-white text-[32px] font-extrabold">
+                <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>86%</motion.span>
+              </span>
+              <span className="text-gray-400 text-[13px]">Autonomous Rate</span>
+            </div>
+            <div className="hidden md:block w-px h-10 bg-white/10" />
+            <div className="flex flex-col items-center w-1/2 md:w-auto">
+              <span className="text-white text-[32px] font-extrabold">
+                <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>1.4s</motion.span>
+              </span>
+              <span className="text-gray-400 text-[13px]">Avg Response Time</span>
+            </div>
+            <div className="hidden md:block w-px h-10 bg-white/10" />
+            <div className="flex flex-col items-center w-1/2 md:w-auto">
+              <span className="text-white text-[32px] font-extrabold">
+                <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>₹32,800</motion.span>
+              </span>
+              <span className="text-gray-400 text-[13px]">Revenue Attributed</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
       {/* ABOUT & CONTACT SECTIONS */}
       <AboutSection />
       <ContactSection />
 
       {/* FOOTER SECTION */}
-      <ReplyIQFooter />
+      <footer className="w-full bg-[#0a0a0f] border-t border-white/5 py-12 px-6 flex justify-center">
+        <div className="max-w-[1200px] w-full flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col items-center md:items-start gap-2">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-md bg-gradient-to-br from-purple-500 to-blue-600"></div>
+              <span className="text-white font-bold tracking-wide">ReplyIQ</span>
+            </div>
+            <p className="text-[13px] text-gray-500">© 2026 ReplyIQ AI. All rights reserved.</p>
+          </div>
+          
+          <div className="flex gap-6 text-[13px] text-gray-500">
+            <Link href="#" className="hover:text-white transition-colors">Features</Link>
+            <Link href="#" className="hover:text-white transition-colors">Pricing</Link>
+            <Link href="#" className="hover:text-white transition-colors">About</Link>
+            <Link href="#" className="hover:text-white transition-colors">Contact</Link>
+          </div>
+          
+          <div className="text-[13px] text-gray-500">
+            Built with Gemini AI + Next.js
+          </div>
+        </div>
+      </footer>
 
     </main>
   )

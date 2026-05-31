@@ -32,13 +32,6 @@ export default function InboxPage() {
       };
       seed();
     }
-
-    // Start the recurring simulator at 20s intervals
-    startSimulator(undefined, 20000);
-
-    return () => {
-      stopSimulator();
-    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
